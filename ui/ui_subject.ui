@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>1080</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1920</width>
+    <height>1080</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>Malgun Gothic</family>
+    <pointsize>16</pointsize>
+   </font>
+  </property>
+  <property name="focusPolicy">
+   <enum>Qt::FocusPolicy::NoFocus</enum>
+  </property>
+  <property name="windowTitle">
+   <string>Digital Olfaction Solution</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label_background">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1920</width>
+      <height>1080</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Malgun Gothic</family>
+      <pointsize>16</pointsize>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	image : url(./ui/images/subject_locale/bg.png);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="ui_subject_btn_quit">
+    <property name="geometry">
+     <rect>
+      <x>1807</x>
+      <y>13</y>
+      <width>96</width>
+      <height>96</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>40</width>
+      <height>40</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Malgun Gothic</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-image : url(./ui/images/common/btn_logout.png);
+	border : 0px;
+}
+
+QPushButton::hover{
+	background-image : url(./ui/images/common/btn_logout_over.png);
+	border : 0px;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_next">
+    <property name="geometry">
+     <rect>
+      <x>1635</x>
+      <y>933</y>
+      <width>260</width>
+      <height>130</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Malgun Gothic</family>
+      <pointsize>24</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-image : url(./ui/images/common_locale/btn_test_start.png);
+	border : 0px;
+}
+
+QPushButton::hover{
+	background-image : url(./ui/images/common_locale/btn_test_start_over.png);
+	border : 0px;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="table_subject">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>320</y>
+      <width>601</width>
+      <height>521</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>맑은 고딕</family>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LayoutDirection::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QTableWidget{
+	background-color: white;
+}
+
+QTableWidget::item:selected {
+	background-color: lightgrey;
+}
+
+QTableView::item{
+	background-color: white;
+	border : 0px;
+    border-bottom : 1px solid #8dbfc9;
+	color : #205f76; 
+	font : 20pt;
+}
+
+QTableView QTableCornerButton::section {
+	background-color: white;
+	background-image : url(./ui/images/common/tb_header.png);
+	border : 0px;
+	border-left : 1px solid qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 lightgray, stop: 0.4 white,stop: 1 white);
+	border-right: 1px solid #8dbfc9;
+}
+
+QHeaderView::section { 
+	background-color: white;
+}
+
+QHeaderView::section:horizontal { 
+	background-color: white;
+	color : #205f76; 
+	font : 20pt;
+	background-image : url(./ui/images/common/tb_header.png);
+	border : 0px;
+	border-left : 1px solid qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 lightgray, stop: 0.4 white,stop: 1 white);
+	border-right: 1px solid #8dbfc9;
+}
+
+QHeaderView::section:vertical { 
+	background-color: white;
+	color : #205f76; 
+	font : 20pt;
+	background-color : white;
+	border : 0px;
+	border-bottom : 1px solid #8dbfc9;
+}
+
+QHeaderView { 
+	background-color: white;
+	qproperty-defaultAlignment: AlignCenter; 
+}
+
+QTableView QTable{
+	background-color: white;
+	border-right : 1px solid #8dbfc9;
+}</string>
+    </property>
+    <property name="showGrid">
+     <bool>false</bool>
+    </property>
+    <property name="gridStyle">
+     <enum>Qt::PenStyle::SolidLine</enum>
+    </property>
+    <property name="sortingEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="cornerButtonEnabled">
+     <bool>true</bool>
+    </property>
+    <property name="rowCount">
+     <number>0</number>
+    </property>
+    <property name="columnCount">
+     <number>0</number>
+    </property>
+    <attribute name="horizontalHeaderCascadingSectionResizes">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="horizontalHeaderHighlightSections">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="horizontalHeaderStretchLastSection">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="verticalHeaderCascadingSectionResizes">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderMinimumSectionSize">
+     <number>50</number>
+    </attribute>
+    <attribute name="verticalHeaderDefaultSectionSize">
+     <number>50</number>
+    </attribute>
+    <attribute name="verticalHeaderHighlightSections">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderStretchLastSection">
+     <bool>false</bool>
+    </attribute>
+   </widget>
+   <widget class="QTableWidget" name="table_test_id">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>320</y>
+      <width>1021</width>
+      <height>521</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>맑은 고딕</family>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LayoutDirection::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QTableWidget{
+	background-color: white;
+}
+
+QTableWidget::item:selected {
+	background-color: lightgrey;
+}
+
+QTableView::item{
+	background-color: white;
+	border : 0px;
+    border-bottom : 1px solid #8dbfc9;
+	color : #205f76; 
+	font : 20pt;
+}
+
+QTableView QTableCornerButton::section {
+	background-color: white;
+	background-image : url(./ui/images/common/tb_header.png);
+	border : 0px;
+	border-left : 1px solid qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 lightgray, stop: 0.4 white,stop: 1 white);
+	border-right: 1px solid #8dbfc9;
+}
+
+QHeaderView::section { 
+	background-color: white;
+}
+
+QHeaderView::section:horizontal { 
+	background-color: white;
+	color : #205f76; 
+	font : 20pt;
+	background-image : url(./ui/images/common/tb_header.png);
+	border : 0px;
+	border-left : 1px solid qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 lightgray, stop: 0.4 white,stop: 1 white);
+	border-right: 1px solid #8dbfc9;
+}
+
+QHeaderView::section:vertical { 
+	background-color: white;
+	color : #205f76; 
+	font : 20pt;
+	background-color : white;
+	border : 0px;
+	border-bottom : 1px solid #8dbfc9;
+}
+
+QHeaderView { 
+	background-color: white;
+	qproperty-defaultAlignment: AlignCenter; 
+}
+
+QTableView QTable{
+	background-color: white;
+	border-right : 1px solid #8dbfc9;
+}</string>
+    </property>
+    <property name="showGrid">
+     <bool>false</bool>
+    </property>
+    <property name="gridStyle">
+     <enum>Qt::PenStyle::SolidLine</enum>
+    </property>
+    <property name="sortingEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="cornerButtonEnabled">
+     <bool>true</bool>
+    </property>
+    <property name="rowCount">
+     <number>0</number>
+    </property>
+    <property name="columnCount">
+     <number>0</number>
+    </property>
+    <attribute name="horizontalHeaderCascadingSectionResizes">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="horizontalHeaderHighlightSections">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="horizontalHeaderStretchLastSection">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="verticalHeaderCascadingSectionResizes">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderMinimumSectionSize">
+     <number>50</number>
+    </attribute>
+    <attribute name="verticalHeaderDefaultSectionSize">
+     <number>50</number>
+    </attribute>
+    <attribute name="verticalHeaderHighlightSections">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderStretchLastSection">
+     <bool>false</bool>
+    </attribute>
+   </widget>
+   <widget class="QLineEdit" name="le_search">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>250</y>
+      <width>251</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color: white;
+	color : #205f76;
+}</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_subject_search">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>250</y>
+      <width>91</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-image : url(./ui/images/subject_locale/btn_search.png);
+	border : 0px;
+}
+
+QPushButton::hover{
+	background-image : url(./ui/images/subject_locale/btn_search_over.png);
+	border : 0px;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_subject_add">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>250</y>
+      <width>91</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-image : url(./ui/images/subject_locale/btn_add.png);
+	border : 0px;
+}
+
+QPushButton::hover{
+	background-image : url(./ui/images/subject_locale/btn_add_over.png);
+	border : 0px;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_subject_delete">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>250</y>
+      <width>91</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-image : url(./ui/images/subject_locale/btn_delete.png);
+	border : 0px;
+}
+
+QPushButton::hover{
+	background-image : url(./ui/images/subject_locale/btn_delete_over.png);
+	border : 0px;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_name">
+    <property name="geometry">
+     <rect>
+      <x>990</x>
+      <y>199</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>Malgun Gothic</family>
+      <pointsize>26</pointsize>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	color : #205f76;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_birth_date">
+    <property name="geometry">
+     <rect>
+      <x>1470</x>
+      <y>199</y>
+      <width>211</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>Malgun Gothic</family>
+      <pointsize>26</pointsize>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	color : #205f76;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

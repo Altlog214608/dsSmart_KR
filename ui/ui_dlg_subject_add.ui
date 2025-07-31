@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="windowModality">
+   <enum>Qt::WindowModality::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1215</width>
+    <height>495</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="label_bg">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1215</width>
+     <height>495</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	image : url(./ui/images/subject_locale/bg_dlg_subject_add.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cb_gender">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>349</y>
+     <width>431</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>Malgun Gothic</family>
+     <pointsize>28</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QComboBox {
+	background-color: white;
+	border : 0px;
+	color : #205f76;
+} 
+
+QComboBox::drop-down {
+	border : 0px;
+}
+
+QComboBox::down-arrow {
+    image : url(./ui/images/common/btn_combo_open.png);
+	padding : 0 30 0 0;
+}
+
+QComboBox::down-arrow:on {
+    image: url(./ui/images/common/btn_combo_close.png);
+	padding : 0 30 0 0;
+}
+
+QComboBox QAbstractItemView {
+    color : #205f76;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>남성</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>여성</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLineEdit" name="le_name">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>135</y>
+     <width>431</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>28</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit{
+	background-color: white;
+	color : #205f76;
+	border : 0px;
+}</string>
+   </property>
+  </widget>
+  <widget class="QDateEdit" name="de_birthdate">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>242</y>
+     <width>431</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>28</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QDateEdit {
+	background-color: white;
+	color : #205f76;
+} 
+
+QDateEdit::up-button {
+	width: 40;
+}
+
+QDateEdit::down-button {
+	width: 40;
+}</string>
+   </property>
+   <property name="dateTime">
+    <datetime>
+     <hour>9</hour>
+     <minute>0</minute>
+     <second>0</second>
+     <year>1970</year>
+     <month>3</month>
+     <day>1</day>
+    </datetime>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_add">
+   <property name="geometry">
+    <rect>
+     <x>900</x>
+     <y>130</y>
+     <width>260</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background-image : url(./ui/images/common_locale/btn_dlg_add.png);
+	border : 0px;
+}
+
+QPushButton::hover{
+	background-image : url(./ui/images/common_locale/btn_dlg_add_over.png);
+	border : 0px;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_close">
+   <property name="geometry">
+    <rect>
+     <x>900</x>
+     <y>280</y>
+     <width>260</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background-image : url(./ui/images/common_locale/btn_dlg_close.png);
+	border : 0px;
+}
+
+QPushButton::hover{
+	background-image : url(./ui/images/common_locale/btn_dlg_close_over.png);
+	border : 0px;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
