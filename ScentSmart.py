@@ -4404,7 +4404,6 @@ class UiDlg(QWidget):
         # 닫기
         workbook.close()
 
-
     def saveDataIdentificationExcel(self, save_file, password):
         # 임시 파일 만들기
         if not os.path.isdir(dsText.resultText['results_data_raw_path']):
@@ -4859,16 +4858,31 @@ class UiDlg(QWidget):
 # Main 함수
 if __name__ == '__main__':
     """Main"""
-    QtCore.QCoreApplication.setAttribute(QtCore.Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
-    app = QApplication(sys.argv)
-    # excepthook = sys.excepthook
-    # sys.excepthook = lambda t, val, tb: excepthook(t, val, tb)
+    # QtCore.QCoreApplication.setAttribute(QtCore.Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
+    # app = QApplication(sys.argv)
+    # # excepthook = sys.excepthook
+    # # sys.excepthook = lambda t, val, tb: excepthook(t, val, tb)
 
-    # 폰트를 로딩한다.
-    # QFontDatabase.addApplicationFont("./ui/font/PAYBOOCBOLD.TTF")
-    # app.setFont(QFont("PAYBOOCBOLD"))
+    # # 폰트를 로딩한다.
+    # # QFontDatabase.addApplicationFont("./ui/font/PAYBOOCBOLD.TTF")
+    # # app.setFont(QFont("PAYBOOCBOLD"))
     
-    # 다이얼로그를 모두 생성한다.
-    uiDlg = UiDlg()
-    uiDlg.uiDlgStart()
+    # # 다이얼로그를 모두 생성한다.
+    # uiDlg = UiDlg()
+    # uiDlg.uiDlgStart()
+    # sys.exit(app.exec())
+
+    app = QApplication(sys.argv)
+    loader = QUiLoader()
+
+    # 1. 확인하고 싶은 .ui 파일의 경로를 지정
+    ui_filename = "./ui/ui_dlg_login_resetpw.ui"  # 예시로 응답창
+
+    # 2. 로드하여 위젯 객체로 받음
+    widget = loader.load(ui_filename)
+
+    # 3. 표시
+    widget.show()
+
+    # 4. 여러 창을 확인하고 싶다면 반복문/리스트로 여러 파일 열어도 됨!
     sys.exit(app.exec())
