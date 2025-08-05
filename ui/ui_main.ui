@@ -197,6 +197,27 @@ QPushButton::hover{
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="ui_main_btn_direct_test">
+    <property name="geometry">
+     <rect>
+      <x>1480</x>
+      <y>730</y>
+      <width>311</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	border-image : url(./ui/images/UI_TEST.png);
+	border-radius: 50px;
+
+}
+</string>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

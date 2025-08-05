@@ -158,11 +158,11 @@ class UiDlg(QWidget):
         self.uiDlgLogin(uiLoader)
         self.uiDlgSubject(uiLoader)
         self.uiDlgMenu(uiLoader)
-        # self.uiDlgTestThreshold(uiLoader)
-        # self.uiDlgTestDiscrimination(uiLoader)
+        self.uiDlgTestThreshold(uiLoader)
+        self.uiDlgTestDiscrimination(uiLoader)
         self.uiDlgTestIdentification(uiLoader)
-        # self.uiDlgTrainST(uiLoader)
-        # self.uiDlgTrainID(uiLoader)
+        self.uiDlgTrainST(uiLoader)
+        self.uiDlgTrainID(uiLoader)
         self.uiDlgMessages(uiLoader)
         self.uiDlgSettings(uiLoader)
         self.uiDlgProtocol(uiLoader)
@@ -178,10 +178,53 @@ class UiDlg(QWidget):
         self.ui_main_dlg.ui_main_btn_login.clicked.connect(self.uiMainBtnLogin)
         self.ui_main_dlg.ui_main_btn_exit.clicked.connect(self.uiMainBtnExit)
 
+        self.test_temp = 0
+        self.ui_qlabel_image_test = uiLoader.load("./ui/ui_qlabel_image_test.ui")
+        self.ui_qlabel_image_test.test_button.clicked.connect(self.uiqlabelImageTest)
+
+        self.ui_main_dlg.ui_main_btn_direct_test.clicked.connect(self.uiMainBtnDirectTest)
+
+        # 새 버튼에 대한 시그널 연결 (추가)
+        if hasattr(self.ui_main_dlg, 'ui_main_btn_direct_test'):
+            self.ui_main_dlg.ui_main_btn_direct_test.clicked.connect(self.uiMainBtnDirectTest)
+        
+                                                    
         self.ui_main_dlg.ui_main_btn_help.setVisible(False)
         # self.ui_main_dlg.ui_main_btn_help.clicked.connect(self.uiMainBtnHelp)
 
         self.setWindowBySetting(self.ui_main_dlg)
+        
+
+    def uiqlabelImageTest(self, uiLoader):
+        print("uiqlabelImageTest")
+        
+        if self.test_temp == 0:
+            QTimer.singleShot(100, lambda: self.uiDlgChange(self.ui_main_dlg, self.ui_qlabel_image_test))
+            self.test_temp = 1
+        else:
+            QTimer.singleShot(100, lambda: self.uiDlgChange(self.ui_qlabel_image_test, self.ui_main_dlg))
+            self.test_temp = 0
+
+
+        # 새 슬롯 함수 정의
+    def uiMainBtnDirectTest(self):
+        # 피검자 선택 화면 없이 바로 검사 화면(예: 인지 검사)으로 이동
+        # 검사 시작 전 사용자 정보 셋업 필요하면 기본값 설정 가능
+        self.name = "기본이름"  # 기본 이름 또는 필요에 따라 빈 문자열
+        self.birth_date = "1900-01-01"  # 임의 날짜
+        self.gender = "N/A"  # 임의 성별
+
+        # 검사 정보 초기화
+        self.initTestIdentification()
+
+        # 사용자 정보 UI 반영
+        self.setSubjectInfoToDlgs(self.name, self.birth_date, self.gender)
+
+        self.uiDlgPrevCP(self.ui_main_dlg)
+        # 검사 화면으로 전환
+        # self.uiDlgChange(self.ui_main_dlg, self.ui_qlabel_image_test)
+        self.uiDlgShow(self.ui_qlabel_image_test)
+    
 
     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     # 로그인 관리
@@ -4858,31 +4901,31 @@ class UiDlg(QWidget):
 # Main 함수
 if __name__ == '__main__':
     """Main"""
-    # QtCore.QCoreApplication.setAttribute(QtCore.Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
-    # app = QApplication(sys.argv)
-    # # excepthook = sys.excepthook
-    # # sys.excepthook = lambda t, val, tb: excepthook(t, val, tb)
-
-    # # 폰트를 로딩한다.
-    # # QFontDatabase.addApplicationFont("./ui/font/PAYBOOCBOLD.TTF")
-    # # app.setFont(QFont("PAYBOOCBOLD"))
-    
-    # # 다이얼로그를 모두 생성한다.
-    # uiDlg = UiDlg()
-    # uiDlg.uiDlgStart()
-    # sys.exit(app.exec())
-
+    QtCore.QCoreApplication.setAttribute(QtCore.Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
     app = QApplication(sys.argv)
-    loader = QUiLoader()
+    # excepthook = sys.excepthook
+    # sys.excepthook = lambda t, val, tb: excepthook(t, val, tb)
 
-    # 1. 확인하고 싶은 .ui 파일의 경로를 지정
-    ui_filename = "./ui/ui_dlg_login_resetpw.ui"  # 예시로 응답창
-
-    # 2. 로드하여 위젯 객체로 받음
-    widget = loader.load(ui_filename)
-
-    # 3. 표시
-    widget.show()
-
-    # 4. 여러 창을 확인하고 싶다면 반복문/리스트로 여러 파일 열어도 됨!
+    # 폰트를 로딩한다.
+    # QFontDatabase.addApplicationFont("./ui/font/PAYBOOCBOLD.TTF")
+    # app.setFont(QFont("PAYBOOCBOLD"))
+    
+    # 다이얼로그를 모두 생성한다.
+    uiDlg = UiDlg()
+    uiDlg.uiDlgStart()
     sys.exit(app.exec())
+
+    # app = QApplication(sys.argv)
+    # loader = QUiLoader()
+
+    # # 1. 확인하고 싶은 .ui 파일의 경로를 지정
+    # ui_filename = "./ui/ui_dlg_login_resetpw.ui"  # 예시로 응답창
+
+    # # 2. 로드하여 위젯 객체로 받음
+    # widget = loader.load(ui_filename)
+
+    # # 3. 표시
+    # widget.show()
+
+    # # 4. 여러 창을 확인하고 싶다면 반복문/리스트로 여러 파일 열어도 됨!
+    # sys.exit(app.exec())
