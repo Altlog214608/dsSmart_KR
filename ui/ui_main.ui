@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1920</width>
-    <height>1080</height>
+    <height>1280</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,7 +19,7 @@
   <property name="maximumSize">
    <size>
     <width>1920</width>
-    <height>1080</height>
+    <height>1280</height>
    </size>
   </property>
   <property name="font">
@@ -47,7 +47,7 @@
       <x>0</x>
       <y>0</y>
       <width>1920</width>
-      <height>1080</height>
+      <height>1280</height>
      </rect>
     </property>
     <property name="acceptDrops">
@@ -195,27 +195,6 @@ QPushButton::hover{
     </property>
     <property name="text">
      <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="ui_main_btn_direct_test">
-    <property name="geometry">
-     <rect>
-      <x>1480</x>
-      <y>730</y>
-      <width>311</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
-	border-image : url(./ui/images/UI_TEST.png);
-	border-radius: 50px;
-
-}
-</string>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
     </property>
    </widget>
   </widget>
