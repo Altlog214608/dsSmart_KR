@@ -1,7 +1,79 @@
+# === 선택지 랜덤화를 위한 설정값 ===
+import random
+
 # 재활 데이터 관리
 id_train_index = 0
 id_train_size = 0
 id_train_scene_list = []
+
+# 현재 사용 중인 "향 리스트"(정답/오답 풀에 함께 사용)
+SCENT_POOL = [
+    '장미','초콜릿','생강','멜론','소나무','베이비파우더',
+    '녹차','홍삼','복숭아','재/연기','페퍼민트','비누'
+]
+
+# 장면들에 이미 쓰고 있는 일반 오답(이미지 리소스가 있는 것만 넣으세요)
+EXTRA_DISTRACTORS = [
+    '잔디','케챱','양파','가죽','페인트','수박','당근','땅콩',
+    '꿀','허브','고구마','로즈마리','쑥','유칼립투스','사과','오렌지',
+    '포도','숯불고기','마늘','핫초코','신문지','계란','레몬','딸기'
+]
+
+# 필요 시 표시 텍스트 ↔ 이미지 키 매핑(파일명이 다를 때만 추가)
+ASSET_KEY_MAP = {
+    # '재/연기': '재연기',
+    # '베이비파우더': '파우더',
+    # '귤(오렌지/감귤)': '오렌지',
+}
+
+
+def randomize_scent_choice_step(step: dict, *, use_extra_decoys=True, seed=None):
+    """
+    발향(scent>0) + choice_3/choice_4 스텝을 3지선다로 랜덤화.
+    step['answer_text'] 가 있으면 그걸 정답으로, 없으면 SCENT_POOL에서 scent번호로 추정(권장X).
+    """
+    lt = step.get('layout_type', '')
+    if step.get('scent', 0) <= 0:
+        return
+    if lt not in ('choice_3', 'choice_4'):
+        return
+
+    # 1) 정답 텍스트
+    correct = step.get('answer_text')
+    if not correct:
+        # fallback: scent → SCENT_POOL (1-based 가정). 정확히 맞추려면 answer_text를 넣으세요.
+        idx = step['scent'] - 1
+        if 0 <= idx < len(SCENT_POOL):
+            correct = SCENT_POOL[idx]
+        else:
+            return  # 정답 추정 불가
+
+    # 2) 오답 풀
+    pool = SCENT_POOL + (EXTRA_DISTRACTORS if use_extra_decoys else [])
+    # 중복 제거 + 정답 우선 보장
+    seen = set()
+    pool = [x for x in pool if (x not in seen) and not seen.add(x)]
+    # 정답 제외
+    candidates = [p for p in pool if p != correct]
+    if len(candidates) < 2:
+        return
+
+    # 3) 오답 2개 랜덤
+    rnd = random.Random(seed if seed is not None else hash((step.get('sound'), step.get('head_title'), step.get('scent'))))
+    distractors = rnd.sample(candidates, 2)
+
+    # 4) 정답+오답 섞기
+    choices = [correct] + distractors
+    rnd.shuffle(choices)
+
+    # 5) 할당(3지선다 강제)
+    step['layout_type'] = 'choice_3'
+    for i, txt in enumerate(choices, start=1):
+        step[f'label_select_{i}'] = txt
+        step[f'img_btn{i}'] = _asset_key(txt)
+    # 4번은 비우기(렌더러가 그리지 않지만 깔끔하게)
+    step['label_select_4'] = ''
+    step['img_btn4'] = ''
 
 # 재활 콘텐츠
 id_train_scene_1 = [{'layout_type':'choice_0',
@@ -19,7 +91,7 @@ id_train_scene_1 = [{'layout_type':'choice_0',
                'sound':'train_id_01_01',
                'scent':0}, # 카트리지 번호 (0보다 크면 발향)
                    
-               {'layout_type':'choice_4',
+               {'layout_type':'choice_3',
                'img_bg':'bg_s_01_01',
                'img_btn1':'잔디',
                'img_btn2':'케챱',
@@ -32,6 +104,7 @@ id_train_scene_1 = [{'layout_type':'choice_0',
                'label_select_3':'장미',
                'label_select_4':'양파',
                'sound':'train_id_01_02',
+               'answer_text':'장미',
                'scent':1},
                
                {'layout_type':'choice_0',
@@ -110,7 +183,7 @@ id_train_scene_2 = [{'layout_type':'choice_0',
                'sound':'train_id_02_01',
                'scent':0}, # 카트리지 번호 (0보다 크면 발향)
                
-               {'layout_type':'choice_4',
+               {'layout_type':'choice_3',
                'img_bg':'bg_s_02_01',
                'img_btn1':'가죽',
                'img_btn2':'페인트',
@@ -201,7 +274,7 @@ id_train_scene_3 = [{'layout_type':'choice_0',
                'sound':'train_id_03_01',
                'scent':0}, # 카트리지 번호 (0보다 크면 발향)
                
-               {'layout_type':'choice_4',
+               {'layout_type':'choice_3',
                'img_bg':'bg_s_03_01',
                'img_btn1':'홍삼',
                'img_btn2':'수박',
@@ -293,7 +366,7 @@ id_train_scene_4 = [{'layout_type':'choice_0',
                'sound':'train_id_04_01',
                'scent':0}, # 카트리지 번호 (0보다 크면 발향)
                
-               {'layout_type':'choice_4',
+               {'layout_type':'choice_3',
                'img_bg':'bg_s_04_01',
                'img_btn1':'꿀',
                'img_btn2':'허브',
@@ -441,7 +514,7 @@ id_train_scene_6 = [{'layout_type':'choice_0',
                'sound':'train_id_06_01',
                'scent':0}, # 카트리지 번호 (0보다 크면 발향)
                
-               {'layout_type':'choice_4',
+               {'layout_type':'choice_3',
                'img_bg':'bg_s_06_01',
                'img_btn1':'커피',
                'img_btn2':'사과',
@@ -532,7 +605,7 @@ id_train_scene_7 = [{'layout_type':'choice_0',
                'sound':'train_id_07_01',
                'scent':0}, # 카트리지 번호 (0보다 크면 발향)
                
-               {'layout_type':'choice_4',
+               {'layout_type':'choice_3',
                'img_bg':'bg_s_07_01',
                'img_btn1':'신문지',
                'img_btn2':'딸기',
@@ -623,7 +696,7 @@ id_train_scene_8 = [{'layout_type':'choice_0',
                'sound':'train_id_08_01',
                'scent':0}, # 카트리지 번호 (0보다 크면 발향)
                
-               {'layout_type':'choice_4',
+               {'layout_type':'choice_3',
                'img_bg':'bg_s_08_01',
                'img_btn1':'숯불고기',
                'img_btn2':'마늘',
