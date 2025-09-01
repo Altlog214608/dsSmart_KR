@@ -24,7 +24,11 @@ ASSET_KEY_MAP = {
     # '재/연기': '재연기',
     # '베이비파우더': '파우더',
     # '귤(오렌지/감귤)': '오렌지',
+    '유칼립투스': '허브',
 }
+
+def _asset_key(label: str) -> str:
+    return ASSET_KEY_MAP.get(label, label)
 
 
 def randomize_scent_choice_step(step: dict, *, use_extra_decoys=True, seed=None):
@@ -196,6 +200,7 @@ id_train_scene_2 = [{'layout_type':'choice_0',
                'label_select_3':'계피',
                'label_select_4':'레몬',
                'sound':'train_id_02_02',
+               'answer_text':'레몬',   
                'scent':2},
 
                {'layout_type':'choice_0',
@@ -287,6 +292,7 @@ id_train_scene_3 = [{'layout_type':'choice_0',
                'label_select_3':'당근',
                'label_select_4':'땅콩',
                'sound':'train_id_03_02',
+               'answer_text':'홍삼',
                'scent':3},
                
                {'layout_type':'choice_0',
@@ -379,6 +385,7 @@ id_train_scene_4 = [{'layout_type':'choice_0',
                'label_select_3':'메론',
                'label_select_4':'고구마',
                'sound':'train_id_04_02',
+               'answer_text':'허브',
                'scent':4},
                
                {'layout_type':'choice_0',
@@ -470,6 +477,7 @@ id_train_scene_5 = [{'layout_type':'choice_0',
                'label_select_3':'맞다.',
                'label_select_4':'아니다.',
                'sound':'train_id_05_02',
+               'answer_text':'아니다',
                'scent':5},
                
                {'layout_type':'choice_1',
@@ -527,6 +535,7 @@ id_train_scene_6 = [{'layout_type':'choice_0',
                'label_select_3':'오렌지',
                'label_select_4':'생강',
                'sound':'train_id_06_02',
+               'answer_text':'커피',
                'scent':6},
                
                {'layout_type':'choice_0',
@@ -618,6 +627,7 @@ id_train_scene_7 = [{'layout_type':'choice_0',
                'label_select_3':'계란',
                'label_select_4':'후추',
                'sound':'train_id_07_02',
+               'answer_text':'딸기',
                'scent':7},
     
                {'layout_type':'choice_0',
@@ -709,6 +719,7 @@ id_train_scene_8 = [{'layout_type':'choice_0',
                'label_select_3':'핫초코',
                'label_select_4':'포도',
                'sound':'train_id_08_02',
+               'answer_text':'핫초코',
                'scent':8},
                
                {'layout_type':'choice_0',
@@ -741,3 +752,12 @@ id_train_scene_8 = [{'layout_type':'choice_0',
                'sound':'train_id_thanks',
                'scent':0},
 ]
+
+_all_train_scenes = [
+    id_train_scene_1, id_train_scene_2, id_train_scene_3, id_train_scene_4,
+    id_train_scene_5, id_train_scene_6, id_train_scene_7, id_train_scene_8
+]
+
+for scene in _all_train_scenes:
+    for step in scene:
+        randomize_scent_choice_step(step, use_extra_decoys=True)

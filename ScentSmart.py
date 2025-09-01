@@ -2137,11 +2137,12 @@ class UiDlg(QWidget):
         self.ui_test_identification_record.pb_id_grade_cur_2.setVisible(False)
         self.ui_test_identification_record.pb_id_grade_cur_3.setVisible(False)
         self.ui_test_identification_record.pb_id_grade_cur_4.setVisible(False)
-        self.ui_test_identification_record.pb_id_grade_cur_5.setVisible(False)
+        # self.ui_test_identification_record.pb_id_grade_cur_5.setVisible(False)
 
         if question_cnt > 0:
             if accuracy_rate > 80:
-                self.ui_test_identification_record.pb_id_grade_cur_5.setVisible(True)
+                # self.ui_test_identification_record.pb_id_grade_cur_5.setVisible(True)
+                pass
             elif accuracy_rate > 60:
                 self.ui_test_identification_record.pb_id_grade_cur_4.setVisible(True)
             elif accuracy_rate > 40:
@@ -4279,24 +4280,41 @@ class UiDlg(QWidget):
             "%d" % count_correct
         )
 
-    def gradeTestResultsIdentification(self, accuracy_rate, question_cnt):
-        self.ui_test_identification_results.pb_id_grade_cur_1.setVisible(False)
-        self.ui_test_identification_results.pb_id_grade_cur_2.setVisible(False)
-        self.ui_test_identification_results.pb_id_grade_cur_3.setVisible(False)
-        self.ui_test_identification_results.pb_id_grade_cur_4.setVisible(False)
-        self.ui_test_identification_results.pb_id_grade_cur_5.setVisible(False)
+    # def gradeTestResultsIdentification(self, accuracy_rate, question_cnt):
+    #     self.ui_test_identification_results.pb_id_grade_cur_1.setVisible(False)
+    #     self.ui_test_identification_results.pb_id_grade_cur_2.setVisible(False)
+    #     self.ui_test_identification_results.pb_id_grade_cur_3.setVisible(False)
+    #     self.ui_test_identification_results.pb_id_grade_cur_4.setVisible(False)
+    #     # self.ui_test_identification_results.pb_id_grade_cur_5.setVisible(False)
 
-        if question_cnt > 0:
-            if accuracy_rate > 80:
-                self.ui_test_identification_results.pb_id_grade_cur_5.setVisible(True)
-            elif accuracy_rate > 60:
-                self.ui_test_identification_results.pb_id_grade_cur_4.setVisible(True)
-            elif accuracy_rate > 40:
-                self.ui_test_identification_results.pb_id_grade_cur_3.setVisible(True)
-            elif accuracy_rate > 20:
-                self.ui_test_identification_results.pb_id_grade_cur_2.setVisible(True)
-            else:
-                self.ui_test_identification_results.pb_id_grade_cur_1.setVisible(True)
+    #     if question_cnt > 0:
+    #         if accuracy_rate > 80:
+    #             # self.ui_test_identification_results.pb_id_grade_cur_5.setVisible(True)
+    #             pass
+    #         elif accuracy_rate > 60:
+    #             self.ui_test_identification_results.pb_id_grade_cur_4.setVisible(True)
+    #         elif accuracy_rate > 40:
+    #             self.ui_test_identification_results.pb_id_grade_cur_3.setVisible(True)
+    #         elif accuracy_rate > 20:
+    #             self.ui_test_identification_results.pb_id_grade_cur_2.setVisible(True)
+    #         else:
+    #             self.ui_test_identification_results.pb_id_grade_cur_1.setVisible(True)
+
+    def gradeTestResultsIdentification(self, correct_pct, question_cnt):
+        # 모든 버튼 숨기기
+        for i in range(1, 5):
+            getattr(self.ui_test_identification_results,
+                    f"pb_id_grade_cur_{i}").setVisible(False)
+        # 정답률에 따른 4구간 매핑
+        if correct_pct >= 75:
+            self.ui_test_identification_results.pb_id_grade_cur_4.setVisible(True)
+        elif correct_pct >= 50:
+            self.ui_test_identification_results.pb_id_grade_cur_3.setVisible(True)
+        elif correct_pct >= 25:
+            self.ui_test_identification_results.pb_id_grade_cur_2.setVisible(True)
+        else:
+            self.ui_test_identification_results.pb_id_grade_cur_1.setVisible(True)
+
 
     def uiTestIdentificationCompletionComplete(self):
         # 인지 검사 결과를 파일에 저장한다.
@@ -4361,11 +4379,12 @@ class UiDlg(QWidget):
         self.ui_test_identification_record.pb_id_grade_cur_2.setVisible(False)
         self.ui_test_identification_record.pb_id_grade_cur_3.setVisible(False)
         self.ui_test_identification_record.pb_id_grade_cur_4.setVisible(False)
-        self.ui_test_identification_record.pb_id_grade_cur_5.setVisible(False)
+        # self.ui_test_identification_record.pb_id_grade_cur_5.setVisible(False)
 
         if question_cnt > 0:
             if accuracy_rate > 80:
-                self.ui_test_identification_record.pb_id_grade_cur_5.setVisible(True)
+                # self.ui_test_identification_record.pb_id_grade_cur_5.setVisible(True)
+                pass
             elif accuracy_rate > 60:
                 self.ui_test_identification_record.pb_id_grade_cur_4.setVisible(True)
             elif accuracy_rate > 40:
