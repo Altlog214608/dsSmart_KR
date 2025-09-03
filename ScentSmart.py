@@ -573,9 +573,9 @@ class UiDlg(QWidget):
         self.ui_test_identification_response.pb_check_3.clicked.connect(
             self.uiTestIdentificationResponseChoice3
         )
-        self.ui_test_identification_response.pb_check_4.clicked.connect(
-            self.uiTestIdentificationResponseChoice4
-        )
+        # self.ui_test_identification_response.pb_check_4.clicked.connect(
+        #     self.uiTestIdentificationResponseChoice4
+        # )
         self.ui_test_identification_response.ui_menu_btn_quit.clicked.connect(
             self.uiTestIdentificationResponseQuit
         )
@@ -710,7 +710,7 @@ class UiDlg(QWidget):
         self.ui_train_st_select.pb_check_1.clicked.connect(self.uiTrainSTSelectChoice1)
         self.ui_train_st_select.pb_check_2.clicked.connect(self.uiTrainSTSelectChoice2)
         self.ui_train_st_select.pb_check_3.clicked.connect(self.uiTrainSTSelectChoice3)
-        self.ui_train_st_select.pb_check_4.clicked.connect(self.uiTrainSTSelectChoice4)
+        # self.ui_train_st_select.pb_check_4.clicked.connect(self.uiTrainSTSelectChoice4)
         self.ui_train_st_select.pb_quit.clicked.connect(self.uiTrainSTSelectQuit)
         self.setWindowBySetting(self.ui_train_st_select)
 
@@ -786,6 +786,18 @@ class UiDlg(QWidget):
         self.ui_train_id_select.pb_quit.clicked.connect(self.uiTrainIDSelectQuit)
         self.setWindowBySetting(self.ui_train_id_select)
 
+        # Scene 1, 2만 활성
+        self.ui_train_id_select.pb_scene_01.setVisible(True)
+        self.ui_train_id_select.pb_scene_02.setVisible(True)
+
+        # Scene 3~8 숨김
+        self.ui_train_id_select.pb_scene_03.setVisible(False)
+        self.ui_train_id_select.pb_scene_04.setVisible(False)
+        self.ui_train_id_select.pb_scene_05.setVisible(False)
+        self.ui_train_id_select.pb_scene_06.setVisible(False)
+        self.ui_train_id_select.pb_scene_07.setVisible(False)
+        self.ui_train_id_select.pb_scene_08.setVisible(False)
+
         # 재활 콘텐츠 Scene 구성안 (숫자: 버튼 개수)
         self.ui_train_id_scene_choice_0 = uiLoader.load("./ui/ui_train_id_choice_0.ui")
         self.ui_train_id_scene_choice_0.label_next.setVisible(False)
@@ -857,9 +869,9 @@ class UiDlg(QWidget):
         self.ui_train_id_scene_choice_4.pb_check_3.clicked.connect(
             self.uiTrainIDChoice4Check3
         )
-        self.ui_train_id_scene_choice_4.pb_check_4.clicked.connect(
-            self.uiTrainIDChoice4Check4
-        )
+        # self.ui_train_id_scene_choice_4.pb_check_4.clicked.connect(
+        #     self.uiTrainIDChoice4Check4
+        # )
         self.setWindowBySetting(self.ui_train_id_scene_choice_4)
 
     def uiTrainIDSelectScene1(self):
@@ -4005,9 +4017,9 @@ class UiDlg(QWidget):
             self.ui_test_identification_response.pb_check_3.setStyleSheet(
                 dsBtnImg["null"]
             )
-            self.ui_test_identification_response.pb_check_4.setStyleSheet(
-                dsBtnImg["null"]
-            )
+            # self.ui_test_identification_response.pb_check_4.setStyleSheet(
+            #     dsBtnImg["null"]
+            # )
         elif number == 2:
             self.ui_test_identification_response.pb_check_1.setStyleSheet(
                 dsBtnImg["null"]
@@ -4018,9 +4030,9 @@ class UiDlg(QWidget):
             self.ui_test_identification_response.pb_check_3.setStyleSheet(
                 dsBtnImg["null"]
             )
-            self.ui_test_identification_response.pb_check_4.setStyleSheet(
-                dsBtnImg["null"]
-            )
+            # self.ui_test_identification_response.pb_check_4.setStyleSheet(
+            #     dsBtnImg["null"]
+            # )
         elif number == 3:
             self.ui_test_identification_response.pb_check_1.setStyleSheet(
                 dsBtnImg["null"]
@@ -4031,9 +4043,9 @@ class UiDlg(QWidget):
             self.ui_test_identification_response.pb_check_3.setStyleSheet(
                 dsBtnImg["check"]
             )
-            self.ui_test_identification_response.pb_check_4.setStyleSheet(
-                dsBtnImg["null"]
-            )
+            # self.ui_test_identification_response.pb_check_4.setStyleSheet(
+            #     dsBtnImg["null"]
+            # )
         elif number == 4:
             self.ui_test_identification_response.pb_check_1.setStyleSheet(
                 dsBtnImg["null"]
@@ -4044,9 +4056,9 @@ class UiDlg(QWidget):
             self.ui_test_identification_response.pb_check_3.setStyleSheet(
                 dsBtnImg["null"]
             )
-            self.ui_test_identification_response.pb_check_4.setStyleSheet(
-                dsBtnImg["check"]
-            )
+            # self.ui_test_identification_response.pb_check_4.setStyleSheet(
+            #     dsBtnImg["check"]
+            # )
         else:
             self.ui_test_identification_response.pb_check_1.setStyleSheet(
                 dsBtnImg["null"]
@@ -4057,9 +4069,9 @@ class UiDlg(QWidget):
             self.ui_test_identification_response.pb_check_3.setStyleSheet(
                 dsBtnImg["null"]
             )
-            self.ui_test_identification_response.pb_check_4.setStyleSheet(
-                dsBtnImg["null"]
-            )
+            # self.ui_test_identification_response.pb_check_4.setStyleSheet(
+            #     dsBtnImg["null"]
+            # )
 
     def selectResponseIdentification(self):
         if (
@@ -4757,25 +4769,25 @@ class UiDlg(QWidget):
         self.ui_train_id_scene_choice_4.pb_check_1.setStyleSheet(dsBtnImg["check"])
         self.ui_train_id_scene_choice_4.pb_check_2.setStyleSheet(dsBtnImg["null"])
         self.ui_train_id_scene_choice_4.pb_check_3.setStyleSheet(dsBtnImg["null"])
-        self.ui_train_id_scene_choice_4.pb_check_4.setStyleSheet(dsBtnImg["null"])
+        # self.ui_train_id_scene_choice_4.pb_check_4.setStyleSheet(dsBtnImg["null"])
 
     def uiTrainIDChoice4Check2(self):
         self.ui_train_id_scene_choice_4.pb_check_1.setStyleSheet(dsBtnImg["null"])
         self.ui_train_id_scene_choice_4.pb_check_2.setStyleSheet(dsBtnImg["check"])
         self.ui_train_id_scene_choice_4.pb_check_3.setStyleSheet(dsBtnImg["null"])
-        self.ui_train_id_scene_choice_4.pb_check_4.setStyleSheet(dsBtnImg["null"])
+        # self.ui_train_id_scene_choice_4.pb_check_4.setStyleSheet(dsBtnImg["null"])
 
     def uiTrainIDChoice4Check3(self):
         self.ui_train_id_scene_choice_4.pb_check_1.setStyleSheet(dsBtnImg["null"])
         self.ui_train_id_scene_choice_4.pb_check_2.setStyleSheet(dsBtnImg["null"])
         self.ui_train_id_scene_choice_4.pb_check_3.setStyleSheet(dsBtnImg["check"])
-        self.ui_train_id_scene_choice_4.pb_check_4.setStyleSheet(dsBtnImg["null"])
+        # self.ui_train_id_scene_choice_4.pb_check_4.setStyleSheet(dsBtnImg["null"])
 
     def uiTrainIDChoice4Check4(self):
         self.ui_train_id_scene_choice_4.pb_check_1.setStyleSheet(dsBtnImg["null"])
         self.ui_train_id_scene_choice_4.pb_check_2.setStyleSheet(dsBtnImg["null"])
         self.ui_train_id_scene_choice_4.pb_check_3.setStyleSheet(dsBtnImg["null"])
-        self.ui_train_id_scene_choice_4.pb_check_4.setStyleSheet(dsBtnImg["check"])
+        # self.ui_train_id_scene_choice_4.pb_check_4.setStyleSheet(dsBtnImg["check"])
 
     def clearUiTrainIDChoiceChecks(self):
         self.ui_train_id_scene_choice_1.pb_check_1.setStyleSheet(dsBtnImg["null"])
@@ -4787,7 +4799,7 @@ class UiDlg(QWidget):
         self.ui_train_id_scene_choice_4.pb_check_1.setStyleSheet(dsBtnImg["null"])
         self.ui_train_id_scene_choice_4.pb_check_2.setStyleSheet(dsBtnImg["null"])
         self.ui_train_id_scene_choice_4.pb_check_3.setStyleSheet(dsBtnImg["null"])
-        self.ui_train_id_scene_choice_4.pb_check_4.setStyleSheet(dsBtnImg["null"])
+        # self.ui_train_id_scene_choice_4.pb_check_4.setStyleSheet(dsBtnImg["null"])
 
     """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" ""
 

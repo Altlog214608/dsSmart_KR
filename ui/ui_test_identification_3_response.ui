@@ -180,7 +180,7 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_select_1">
     <property name="geometry">
      <rect>
-      <x>222</x>
+      <x>420</x>
       <y>499</y>
       <width>360</width>
       <height>260</height>
@@ -210,7 +210,7 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_select_2">
     <property name="geometry">
      <rect>
-      <x>594</x>
+      <x>780</x>
       <y>499</y>
       <width>360</width>
       <height>260</height>
@@ -240,37 +240,7 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_select_3">
     <property name="geometry">
      <rect>
-      <x>966</x>
-      <y>499</y>
-      <width>360</width>
-      <height>260</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
-	border : 0px;
-}</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pb_select_4">
-    <property name="geometry">
-     <rect>
-      <x>1338</x>
+      <x>1140</x>
       <y>499</y>
       <width>360</width>
       <height>260</height>
@@ -300,7 +270,7 @@ QPushButton::hover{
    <widget class="QLabel" name="label_select_2">
     <property name="geometry">
      <rect>
-      <x>594</x>
+      <x>780</x>
       <y>769</y>
       <width>360</width>
       <height>61</height>
@@ -330,7 +300,7 @@ QPushButton::hover{
    <widget class="QLabel" name="label_select_3">
     <property name="geometry">
      <rect>
-      <x>966</x>
+      <x>1140</x>
       <y>769</y>
       <width>360</width>
       <height>61</height>
@@ -357,40 +327,10 @@ QPushButton::hover{
      <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignHCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label_select_4">
-    <property name="geometry">
-     <rect>
-      <x>1338</x>
-      <y>769</y>
-      <width>360</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Malgun Gothic</family>
-      <pointsize>34</pointsize>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel{
-	font : 34pt;
-	color : #205f76;
-}</string>
-    </property>
-    <property name="text">
-     <string>test4</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignHCenter</set>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_select_1">
     <property name="geometry">
      <rect>
-      <x>222</x>
+      <x>420</x>
       <y>769</y>
       <width>360</width>
       <height>61</height>
@@ -512,7 +452,7 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_check_1">
     <property name="geometry">
      <rect>
-      <x>222</x>
+      <x>420</x>
       <y>499</y>
       <width>360</width>
       <height>260</height>
@@ -542,37 +482,7 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_check_3">
     <property name="geometry">
      <rect>
-      <x>966</x>
-      <y>499</y>
-      <width>360</width>
-      <height>260</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
-	border : 0px;
-}</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pb_check_4">
-    <property name="geometry">
-     <rect>
-      <x>1338</x>
+      <x>1140</x>
       <y>499</y>
       <width>360</width>
       <height>260</height>
@@ -602,7 +512,7 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_check_2">
     <property name="geometry">
      <rect>
-      <x>594</x>
+      <x>780</x>
       <y>499</y>
       <width>360</width>
       <height>260</height>

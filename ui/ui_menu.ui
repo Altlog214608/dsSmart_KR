@@ -306,8 +306,8 @@ QPushButton::hover{
    <widget class="QPushButton" name="ui_menu_btn_test_identification">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>280</y>
+      <x>394</x>
+      <y>380</y>
       <width>1131</width>
       <height>233</height>
      </rect>
@@ -378,8 +378,8 @@ QPushButton::hover{
    <widget class="QPushButton" name="ui_menu_btn_train_id">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>760</y>
+      <x>394</x>
+      <y>660</y>
       <width>1131</width>
       <height>233</height>
      </rect>
