@@ -25,6 +25,7 @@ from PySide6.QtWidgets import (
     QScroller,
     QAbstractItemView,
     QFileDialog,
+    QHeaderView
 )
 
 import dsSerial
@@ -1709,7 +1710,7 @@ class UiDlg(QWidget):
         )
         self.ui_subject_dlg.table_subject.setColumnWidth(0, 200)  # name
         self.ui_subject_dlg.table_subject.setColumnWidth(1, 275)  # birth date
-        self.ui_subject_dlg.table_subject.setColumnWidth(2, 110)  # gender
+        self.ui_subject_dlg.table_subject.setColumnWidth(2, 233)  # gender
         subjectIndex = 0
         for id, name, birth_date, gender in data_subjects:
             if subjectIndex > 0:
@@ -2181,9 +2182,9 @@ class UiDlg(QWidget):
         )  # 행 인덱스 안보이게
         # self.ui_subject_dlg.table_test_id.horizontalHeader().setVisible(False) # 열 인덱스 안보이게
         self.ui_subject_dlg.table_test_id.setRowCount(0)
-        self.ui_subject_dlg.table_test_id.setEditTriggers(
-            QAbstractItemView.NoEditTriggers
-        )  # 수정 안되게
+        # self.ui_subject_dlg.table_test_id.setEditTriggers(
+        #     QAbstractItemView.NoEditTriggers
+        # )  # 수정 안되게
         self.ui_subject_dlg.table_test_id.setColumnCount(
             len(data_test_id[0]) - 25
         )  #  ID, 문제정보보 제외하려면, (-1)
@@ -2198,9 +2199,10 @@ class UiDlg(QWidget):
         )
         self.ui_subject_dlg.table_test_id.setColumnWidth(0, 200)  # name
         self.ui_subject_dlg.table_test_id.setColumnWidth(1, 275)  # birth date
-        self.ui_subject_dlg.table_test_id.setColumnWidth(2, 110)  # gender
-        self.ui_subject_dlg.table_test_id.setColumnWidth(3, 300)  # test_datetime
-        self.ui_subject_dlg.table_test_id.setColumnWidth(4, 120)  # test_score
+        self.ui_subject_dlg.table_test_id.setColumnWidth(2, 340)  # gender
+        # self.ui_subject_dlg.table_test_id.setColumnWidth(3, 300)  # test_datetime
+        # self.ui_subject_dlg.table_test_id.setColumnWidth(4, 120)  # test_score
+
         subjectIndex = 0
         for (
             id,
@@ -2280,117 +2282,64 @@ class UiDlg(QWidget):
     def updateUiSujbectTestID(self, name, birth_date, gender):
         # update table_suject
         try:
-            data_test_id = dsTestDB.selectTableTestIDKeywords(
-                name, birth_date, gender
-            )  # DB에서 읽기
+            data_test_id = dsTestDB.selectTableTestIDKeywords(name, birth_date, gender)  # DB에서 읽기
         except Exception as err:
             self.uiDlgMsgText(dsText.errorText["db_select_test_id_fail"])
             return
+
         print(data_test_id)
         self.isSubjectTestIDChanging = False
-        self.ui_subject_dlg.table_test_id.clear()
-        self.ui_subject_dlg.table_test_id.verticalHeader().setVisible(
-            False
-        )  # 행 인덱스 안보이게
-        # self.ui_subject_dlg.table_test_id.horizontalHeader().setVisible(False) # 열 인덱스 안보이게
-        self.ui_subject_dlg.table_test_id.setRowCount(0)
-        self.ui_subject_dlg.table_test_id.setEditTriggers(
-            QAbstractItemView.NoEditTriggers
-        )  # 수정 안되게
-        self.ui_subject_dlg.table_test_id.setColumnCount(
-            len(data_test_id[0]) - 25
-        )  #  ID, 문제정보보 제외하려면, (-1)
-        self.ui_subject_dlg.table_test_id.setHorizontalHeaderLabels(
-            [
-                data_test_id[0][1],
-                data_test_id[0][2],
-                data_test_id[0][3],
-                data_test_id[0][4],
-                data_test_id[0][5],
-            ]
+        table = self.ui_subject_dlg.table_test_id
+
+        table.clear()
+        table.verticalHeader().setVisible(False)  # 행 인덱스 숨김
+        table.setRowCount(0)
+        table.setEditTriggers(QAbstractItemView.NoEditTriggers)  # 수정 불가
+
+        table.setColumnCount(len(data_test_id[0]) - 25)  # ID, 문제정보 제외한 표시용 컬럼 수
+        table.setHorizontalHeaderLabels(
+            [data_test_id[0][1], data_test_id[0][2], data_test_id[0][3], data_test_id[0][4], data_test_id[0][5]]
         )
-        self.ui_subject_dlg.table_test_id.setColumnWidth(0, 200)  # name
-        self.ui_subject_dlg.table_test_id.setColumnWidth(1, 275)  # birth date
-        self.ui_subject_dlg.table_test_id.setColumnWidth(2, 110)  # gender
-        self.ui_subject_dlg.table_test_id.setColumnWidth(3, 300)  # test_datetime
-        self.ui_subject_dlg.table_test_id.setColumnWidth(4, 120)  # test_score
+
+        # 컬럼 폭 세팅
+        table.setColumnWidth(0, 200)  # name
+        table.setColumnWidth(1, 275)  # birth date
+        table.setColumnWidth(2, 240)  # gender
+        table.setColumnWidth(3, 354)  # test_datetime
+        table.setColumnWidth(4, 354)  # test_score
+
+        # ✅ 여기서만 ‘이름/생년월일/성별’ 숨김 (화면에 안나오게)
+        table.setColumnHidden(0, True)  # name
+        table.setColumnHidden(1, True)  # birth date
+        table.setColumnHidden(2, True)  # gender
+
         subjectIndex = 0
         for (
-            id,
-            name,
-            birth_date,
-            gender,
-            test_date_time,
-            test_score,
-            answer_01,
-            answer_02,
-            answer_03,
-            answer_04,
-            answer_05,
-            answer_06,
-            answer_07,
-            answer_08,
-            answer_09,
-            answer_10,
-            answer_11,
-            answer_12,
-            choice_01,
-            choice_02,
-            choice_03,
-            choice_04,
-            choice_05,
-            choice_06,
-            choice_07,
-            choice_08,
-            choice_09,
-            choice_10,
-            choice_11,
-            choice_12,
+            id, name, birth_date, gender, test_date_time, test_score,
+            answer_01, answer_02, answer_03, answer_04, answer_05, answer_06,
+            answer_07, answer_08, answer_09, answer_10, answer_11, answer_12,
+            choice_01, choice_02, choice_03, choice_04, choice_05, choice_06,
+            choice_07, choice_08, choice_09, choice_10, choice_11, choice_12,
         ) in data_test_id:
             if subjectIndex > 0:
-                nRow = self.ui_subject_dlg.table_test_id.rowCount()
-                self.ui_subject_dlg.table_test_id.setRowCount(nRow + 1)
-                self.ui_subject_dlg.table_test_id.setItem(
-                    nRow, 0, QTableWidgetItem(name)
-                )
-                self.ui_subject_dlg.table_test_id.setItem(
-                    nRow, 1, QTableWidgetItem(birth_date)
-                )
-                self.ui_subject_dlg.table_test_id.setItem(
-                    nRow, 2, QTableWidgetItem(gender)
-                )
-                self.ui_subject_dlg.table_test_id.setItem(
-                    nRow, 3, QTableWidgetItem(test_date_time)
-                )
-                self.ui_subject_dlg.table_test_id.setItem(
-                    nRow, 4, QTableWidgetItem(str(test_score))
-                )
-                self.ui_subject_dlg.table_test_id.item(nRow, 0).setTextAlignment(
-                    Qt.AlignCenter | Qt.AlignVCenter
-                )
-                self.ui_subject_dlg.table_test_id.item(nRow, 1).setTextAlignment(
-                    Qt.AlignCenter | Qt.AlignVCenter
-                )
-                self.ui_subject_dlg.table_test_id.item(nRow, 2).setTextAlignment(
-                    Qt.AlignCenter | Qt.AlignVCenter
-                )
-                self.ui_subject_dlg.table_test_id.item(nRow, 3).setTextAlignment(
-                    Qt.AlignCenter | Qt.AlignVCenter
-                )
-                self.ui_subject_dlg.table_test_id.item(nRow, 4).setTextAlignment(
-                    Qt.AlignCenter | Qt.AlignVCenter
-                )
+                nRow = table.rowCount()
+                table.setRowCount(nRow + 1)
+                table.setItem(nRow, 0, QTableWidgetItem(name))
+                table.setItem(nRow, 1, QTableWidgetItem(birth_date))
+                table.setItem(nRow, 2, QTableWidgetItem(gender))
+                table.setItem(nRow, 3, QTableWidgetItem(test_date_time))
+                table.setItem(nRow, 4, QTableWidgetItem(str(test_score)))
+
+                for c in range(5):
+                    item = table.item(nRow, c)
+                    if item:
+                        item.setTextAlignment(Qt.AlignCenter | Qt.AlignVCenter)
+
             subjectIndex += 1
 
-        self.ui_subject_dlg.table_test_id.itemDoubleClicked.connect(
-            self.cellTestIDTableCurrent
-        )
-        self.ui_subject_dlg.table_test_id.setSelectionMode(
-            QAbstractItemView.SelectionMode.SingleSelection
-        )
-        self.ui_subject_dlg.table_test_id.setSelectionBehavior(
-            QAbstractItemView.SelectionBehavior.SelectRows
-        )  # 선택: 행
+        table.itemDoubleClicked.connect(self.cellTestIDTableCurrent)
+        table.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
+        table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)  # 선택: 행
 
     """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" ""
 

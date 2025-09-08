@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1215</width>
-    <height>495</height>
+    <width>1208</width>
+    <height>562</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,10 +19,10 @@
   <widget class="QPushButton" name="pb_start">
    <property name="geometry">
     <rect>
-     <x>880</x>
-     <y>160</y>
-     <width>244</width>
-     <height>105</height>
+     <x>670</x>
+     <y>290</y>
+     <width>320</width>
+     <height>100</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -45,8 +45,8 @@ QPushButton::hover{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1215</width>
-     <height>495</height>
+     <width>1208</width>
+     <height>562</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -61,10 +61,10 @@ QPushButton::hover{
   <widget class="QLineEdit" name="le_pw">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>230</y>
-     <width>371</width>
-     <height>61</height>
+     <x>290</x>
+     <y>170</y>
+     <width>821</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="font">
@@ -83,8 +83,8 @@ QPushButton::hover{
   <widget class="QLabel" name="label_msg">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>310</y>
+     <x>430</x>
+     <y>380</y>
      <width>381</width>
      <height>81</height>
     </rect>
@@ -118,8 +118,8 @@ QPushButton::hover{
   <widget class="QPushButton" name="pb_reset_pw">
    <property name="geometry">
     <rect>
-     <x>510</x>
-     <y>400</y>
+     <x>520</x>
+     <y>440</y>
      <width>195</width>
      <height>54</height>
     </rect>
@@ -137,10 +137,10 @@ QPushButton::hover{
   <widget class="QPushButton" name="pb_cancel">
    <property name="geometry">
     <rect>
-     <x>880</x>
+     <x>290</x>
      <y>290</y>
-     <width>244</width>
-     <height>105</height>
+     <width>320</width>
+     <height>100</height>
     </rect>
    </property>
    <property name="styleSheet">

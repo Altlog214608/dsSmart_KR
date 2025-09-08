@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1920</width>
-    <height>1280</height>
+    <height>1200</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,7 +19,7 @@
   <property name="maximumSize">
    <size>
     <width>1920</width>
-    <height>1280</height>
+    <height>1200</height>
    </size>
   </property>
   <property name="font">
@@ -44,7 +44,7 @@
       <x>0</x>
       <y>0</y>
       <width>1920</width>
-      <height>1280</height>
+      <height>1200</height>
      </rect>
     </property>
     <property name="font">
@@ -114,8 +114,8 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_next">
     <property name="geometry">
      <rect>
-      <x>1635</x>
-      <y>933</y>
+      <x>820</x>
+      <y>1010</y>
       <width>260</width>
       <height>130</height>
      </rect>
@@ -144,10 +144,10 @@ QPushButton::hover{
    <widget class="QTableWidget" name="table_subject">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>320</y>
-      <width>601</width>
-      <height>521</height>
+      <x>200</x>
+      <y>460</y>
+      <width>711</width>
+      <height>471</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -278,10 +278,10 @@ QTableView QTable{
    <widget class="QTableWidget" name="table_test_id">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>320</y>
-      <width>1021</width>
-      <height>521</height>
+      <x>1010</x>
+      <y>460</y>
+      <width>711</width>
+      <height>471</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -412,10 +412,10 @@ QTableView QTable{
    <widget class="QLineEdit" name="le_search">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>250</y>
-      <width>251</width>
-      <height>51</height>
+      <x>210</x>
+      <y>300</y>
+      <width>521</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -428,10 +428,10 @@ QTableView QTable{
    <widget class="QPushButton" name="pb_subject_search">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>250</y>
-      <width>91</width>
-      <height>51</height>
+      <x>760</x>
+      <y>294</y>
+      <width>130</width>
+      <height>80</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -452,10 +452,10 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_subject_add">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>250</y>
-      <width>91</width>
-      <height>51</height>
+      <x>617</x>
+      <y>217</y>
+      <width>125</width>
+      <height>56</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -476,10 +476,10 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_subject_delete">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>250</y>
-      <width>91</width>
-      <height>51</height>
+      <x>766</x>
+      <y>217</y>
+      <width>125</width>
+      <height>56</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -500,8 +500,8 @@ QPushButton::hover{
    <widget class="QLabel" name="label_name">
     <property name="geometry">
      <rect>
-      <x>990</x>
-      <y>199</y>
+      <x>1110</x>
+      <y>220</y>
       <width>151</width>
       <height>51</height>
      </rect>
@@ -532,8 +532,8 @@ QPushButton::hover{
    <widget class="QLabel" name="label_birth_date">
     <property name="geometry">
      <rect>
-      <x>1470</x>
-      <y>199</y>
+      <x>1510</x>
+      <y>220</y>
       <width>211</width>
       <height>51</height>
      </rect>
