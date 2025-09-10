@@ -622,7 +622,7 @@ class UiDlg(QWidget):
         )
         # ↓ 신규: 인쇄 버튼 연결 (추가)
         self.ui_test_identification_results.pushButton_print.clicked.connect(
-            self.uiTestIdentificationResultsPrint
+            self.uiTestIdentificationResultsPrintExcel
         )
 
         self.setWindowBySetting(self.ui_test_identification_results)
@@ -640,9 +640,9 @@ class UiDlg(QWidget):
         )
         
         self.ui_test_identification_record.pushButton_print.clicked.connect(
-            self.uiTestIdentificationRecordPrint
+            self.uiTestIdentificationRecordPrintExcel
         )
-        
+
         self.ui_test_identification_record.ui_menu_btn_quit.clicked.connect(
             self.uiTestIdentificationRecordConfirm
         )
@@ -4416,6 +4416,7 @@ class UiDlg(QWidget):
 
             # 실제 저장
             self.saveReportIdentification(save_path)
+            self.last_saved_excel_path = save_path  # ← 추가: 마지막 저장 파일 경로 기억
 
             QMessageBox.information(self, "완료", "파일 저장이 완료되었습니다.")
         except Exception as e:
@@ -5549,7 +5550,6 @@ class UiDlg(QWidget):
     # 기록을 Excel로 저장
     # 기록을 Excel로 저장 (동적 문항수 대응)
 
-
     def saveReportIdentification(self, save_file):
 
 
@@ -5710,6 +5710,9 @@ class UiDlg(QWidget):
         # 닫기
         workbook.close()
 
+
+
+
     def saveDataIdentificationExcel(self, save_file, password):
         # 임시 파일 만들기
         if not os.path.isdir(dsText.resultText["results_data_raw_path"]):
@@ -5764,6 +5767,7 @@ class UiDlg(QWidget):
         # 암호화
         self.setExcelFilePassword(temp_file, save_file, password)
 
+        
     def setExcelFilePassword(self, input_file, output_file, password):
         print("setExcelFilePassword")
 
@@ -6537,43 +6541,85 @@ class UiDlg(QWidget):
         workbook.close()
 
 
-    def printWidget(self, widget, title="검사 결과"):
-        try:
-            printer = QPrinter(QPrinter.PrinterMode.HighResolution)
-            printer.setFullPage(True)
-            printer.setDocName(title)
 
-            dialog = QPrintDialog(printer, self)
-            dialog.setWindowTitle("인쇄")
-            if dialog.exec() != QPrintDialog.DialogCode.Accepted:
-                return  # 사용자가 취소
-
-            # 위젯을 페이지에 맞춰 스케일링해서 렌더링
-            painter = QtGui.QPainter(printer)
-            try:
-                page_rect = printer.pageRect()
-                widget_rect = widget.rect()
-
-                sx = page_rect.width()  / widget_rect.width()
-                sy = page_rect.height() / widget_rect.height()
-                scale = min(sx, sy)
-
-                painter.translate(page_rect.x(), page_rect.y())
-                painter.scale(scale, scale)
-                widget.render(painter)  # 현재 위젯 모양 그대로 출력
-            finally:
-                painter.end()
-        except Exception as err:
-            # 기존 메시지 다이얼로그 활용
-            self.uiDlgMsgText(dsText.errorText.get("print_fail", "인쇄 중 오류가 발생했습니다."))
-    
-    def uiTestIdentificationResultsPrint(self):
-        # 인지검사 결과 페이지 전체를 출력
-        self.printWidget(self.ui_test_identification_results, title="인지검사 결과")
-
-    def uiTestIdentificationRecordPrint(self):
         # 기록 조회 페이지 전체를 출력 (필요한 경우)
         self.printWidget(self.ui_test_identification_record, title="인지검사 기록")
+
+    def printExcelFile(self, path: str):
+        """OS 기본 앱(윈도우: Excel)으로 .xlsx를 인쇄."""
+        import sys, os
+        try:
+            if sys.platform.startswith('win'):
+                # 가장 간단/안정: 기본 앱에 'print' 동작 전달
+                try:
+                    os.startfile(path, 'print')
+                except Exception:
+                    # (옵션) pywin32가 있을 때 더 강력한 경로
+                    try:
+                        import win32com.client
+                        excel = win32com.client.Dispatch("Excel.Application")
+                        excel.Visible = False
+                        wb = excel.Workbooks.Open(path)
+                        wb.PrintOut()   # 기본 프린터로 출력
+                        wb.Close(SaveChanges=False)
+                        excel.Quit()
+                    except Exception as e2:
+                        self.uiDlgMsgText(f"엑셀 인쇄 실패: {e2}")
+            else:
+                # macOS/Linux: 연결 앱으로 열어두고 사용자가 인쇄
+                from PySide6 import QtCore, QtGui
+                QtGui.QDesktopServices.openUrl(QtCore.QUrl.fromLocalFile(path))
+                self.uiDlgMsgText("엑셀에서 파일을 열었습니다. 메뉴에서 '인쇄'를 눌러주세요.")
+        except Exception as err:
+            self.uiDlgMsgText(f"인쇄 중 오류가 발생했습니다: {err}")
+
+    def _pickExcelIfMissing(self):
+        """경로를 못 찾으면 사용자에게 .xlsx 파일을 고르게 한다."""
+        from PySide6.QtWidgets import QFileDialog
+        base_dir = os.path.join(os.getcwd(), dsText.resultText.get('results_data_raw_path','results'))
+        path, _ = QFileDialog.getOpenFileName(
+            self, "인쇄할 엑셀 선택", base_dir, "Excel 통합문서 (*.xlsx)"
+        )
+        return path
+
+    def uiTestIdentificationResultsPrintExcel(self):    
+        import os, re
+        # 저장 폴더
+        base_dir = os.path.join(os.getcwd(), dsText.resultText.get('results_data_raw_path','results'))
+        os.makedirs(base_dir, exist_ok=True)
+
+        # 파일명: 화면에 잡혀있는 record_* 값으로 생성 (콜론/공백 제거)
+        dt = getattr(self, 'record_test_date_time', '').strip()  # 예: "2025-09-10 10:42"
+        dt_safe = re.sub(r'[^0-9]', '', dt)[:12]  # "202509101042" 형태로 정리
+        name  = getattr(self, 'record_name', '')
+        birth = getattr(self, 'record_birth_date', '')
+        gender= getattr(self, 'record_gender', '')
+
+        filename = f"{name}_{birth}_{gender}_{dt_safe}_인지검사.xlsx"
+        save_path = os.path.join(base_dir, filename)
+
+        # ★ 현재 화면 데이터로 엑셀을 즉시 생성
+        self.saveReportIdentification(save_path)  # 보고서 생성 함수 (이미 구현됨)
+
+        # 방금 만든 경로 기억해두고
+        self.last_saved_excel_path = save_path
+
+        # 그 파일을 바로 인쇄 (Windows: 기본 프린터로)
+        self.printExcelFile(save_path)
+        
+        # path = getattr(self, 'last_saved_excel_path', None)
+        # if not path or not os.path.exists(path):
+        #     path = self._pickExcelIfMissing()
+        #     if not path:
+        #         return
+        # self.printExcelFile(path)
+
+    def uiTestIdentificationRecordPrintExcel(self):
+        # 기록 조회 화면에서도 동일 동작
+        self.uiTestIdentificationResultsPrintExcel()
+
+
+
 
     """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" ""
 
