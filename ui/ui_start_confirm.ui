@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1215</width>
-    <height>495</height>
+    <width>846</width>
+    <height>466</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,10 +19,10 @@
   <widget class="QPushButton" name="pb_start">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>220</y>
-     <width>260</width>
-     <height>130</height>
+     <x>280</x>
+     <y>80</y>
+     <width>320</width>
+     <height>100</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -43,10 +43,10 @@ QPushButton::hover{
   <widget class="QPushButton" name="pb_resume">
    <property name="geometry">
     <rect>
-     <x>480</x>
-     <y>220</y>
-     <width>260</width>
-     <height>130</height>
+     <x>280</x>
+     <y>210</y>
+     <width>320</width>
+     <height>100</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -67,10 +67,10 @@ QPushButton::hover{
   <widget class="QPushButton" name="pb_close">
    <property name="geometry">
     <rect>
-     <x>820</x>
-     <y>220</y>
-     <width>260</width>
-     <height>130</height>
+     <x>280</x>
+     <y>340</y>
+     <width>320</width>
+     <height>100</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -93,8 +93,8 @@ QPushButton::hover{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1215</width>
-     <height>495</height>
+     <width>846</width>
+     <height>466</height>
     </rect>
    </property>
    <property name="styleSheet">

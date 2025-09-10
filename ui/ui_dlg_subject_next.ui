@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1215</width>
-    <height>495</height>
+    <width>846</width>
+    <height>466</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,8 +21,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1215</width>
-     <height>495</height>
+     <width>846</width>
+     <height>466</height>
     </rect>
    </property>
    <property name="font">
@@ -42,10 +42,10 @@
   <widget class="QPushButton" name="pb_close">
    <property name="geometry">
     <rect>
-     <x>680</x>
-     <y>290</y>
-     <width>260</width>
-     <height>130</height>
+     <x>470</x>
+     <y>330</y>
+     <width>320</width>
+     <height>100</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -66,10 +66,10 @@ QPushButton::hover{
   <widget class="QPushButton" name="pb_next">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>290</y>
-     <width>260</width>
-     <height>130</height>
+     <x>50</x>
+     <y>330</y>
+     <width>320</width>
+     <height>100</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -90,8 +90,8 @@ QPushButton::hover{
   <widget class="QLabel" name="label_info">
    <property name="geometry">
     <rect>
-     <x>360</x>
-     <y>140</y>
+     <x>170</x>
+     <y>130</y>
      <width>491</width>
      <height>121</height>
     </rect>

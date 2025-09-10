@@ -47,7 +47,7 @@
       <x>0</x>
       <y>0</y>
       <width>1920</width>
-      <height>1280</height>
+      <height>1200</height>
      </rect>
     </property>
     <property name="maximumSize">
@@ -164,8 +164,8 @@ QPushButton::hover{
      <rect>
       <x>600</x>
       <y>532</y>
-      <width>301</width>
-      <height>217</height>
+      <width>284</width>
+      <height>240</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -200,8 +200,8 @@ QPushButton::hover{
      <rect>
       <x>1020</x>
       <y>532</y>
-      <width>301</width>
-      <height>217</height>
+      <width>284</width>
+      <height>240</height>
      </rect>
     </property>
     <property name="sizePolicy">

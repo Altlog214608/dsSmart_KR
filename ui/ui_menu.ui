@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1920</width>
-    <height>1280</height>
+    <height>1200</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -47,7 +47,7 @@
       <x>0</x>
       <y>0</y>
       <width>1920</width>
-      <height>1280</height>
+      <height>1200</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -306,10 +306,10 @@ QPushButton::hover{
    <widget class="QPushButton" name="ui_menu_btn_test_identification">
     <property name="geometry">
      <rect>
-      <x>394</x>
+      <x>215</x>
       <y>380</y>
-      <width>1131</width>
-      <height>233</height>
+      <width>1516</width>
+      <height>240</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -378,10 +378,10 @@ QPushButton::hover{
    <widget class="QPushButton" name="ui_menu_btn_train_id">
     <property name="geometry">
      <rect>
-      <x>394</x>
-      <y>660</y>
-      <width>1131</width>
-      <height>233</height>
+      <x>215</x>
+      <y>670</y>
+      <width>1516</width>
+      <height>240</height>
      </rect>
     </property>
     <property name="sizePolicy">

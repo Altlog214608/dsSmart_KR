@@ -41,10 +41,10 @@
    <widget class="QPushButton" name="ui_train_btn_forward">
     <property name="geometry">
      <rect>
-      <x>1635</x>
+      <x>1575</x>
       <y>933</y>
-      <width>260</width>
-      <height>130</height>
+      <width>320</width>
+      <height>100</height>
      </rect>
     </property>
     <property name="font">
@@ -73,8 +73,8 @@ QPushButton::hover{
      <rect>
       <x>25</x>
       <y>933</y>
-      <width>260</width>
-      <height>130</height>
+      <width>320</width>
+      <height>100</height>
      </rect>
     </property>
     <property name="font">
@@ -104,7 +104,7 @@ QPushButton::hover{
       <x>0</x>
       <y>0</y>
       <width>1920</width>
-      <height>1280</height>
+      <height>1200</height>
      </rect>
     </property>
     <property name="font">
