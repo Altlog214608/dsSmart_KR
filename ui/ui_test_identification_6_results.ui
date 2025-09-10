@@ -728,8 +728,8 @@
      <rect>
       <x>1010</x>
       <y>310</y>
-      <width>807</width>
-      <height>136</height>
+      <width>748</width>
+      <height>65</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -747,8 +747,8 @@
      <rect>
       <x>1010</x>
       <y>446</y>
-      <width>807</width>
-      <height>136</height>
+      <width>748</width>
+      <height>65</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -766,8 +766,8 @@
      <rect>
       <x>1010</x>
       <y>582</y>
-      <width>807</width>
-      <height>136</height>
+      <width>748</width>
+      <height>65</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -785,8 +785,8 @@
      <rect>
       <x>1010</x>
       <y>718</y>
-      <width>807</width>
-      <height>134</height>
+      <width>748</width>
+      <height>65</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -840,10 +840,10 @@
    <widget class="QPushButton" name="pb_id_grade_cur_4">
     <property name="geometry">
      <rect>
-      <x>1000</x>
-      <y>300</y>
-      <width>827</width>
-      <height>140</height>
+      <x>1010</x>
+      <y>310</y>
+      <width>748</width>
+      <height>65</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -859,10 +859,10 @@
    <widget class="QPushButton" name="pb_id_grade_cur_3">
     <property name="geometry">
      <rect>
-      <x>1000</x>
+      <x>1010</x>
       <y>440</y>
-      <width>827</width>
-      <height>140</height>
+      <width>748</width>
+      <height>65</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -878,10 +878,10 @@
    <widget class="QPushButton" name="pb_id_grade_cur_2">
     <property name="geometry">
      <rect>
-      <x>1000</x>
+      <x>1010</x>
       <y>580</y>
-      <width>827</width>
-      <height>140</height>
+      <width>748</width>
+      <height>65</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -897,10 +897,10 @@
    <widget class="QPushButton" name="pb_id_grade_cur_1">
     <property name="geometry">
      <rect>
-      <x>1000</x>
+      <x>1010</x>
       <y>720</y>
-      <width>827</width>
-      <height>140</height>
+      <width>748</width>
+      <height>65</height>
      </rect>
     </property>
     <property name="styleSheet">
