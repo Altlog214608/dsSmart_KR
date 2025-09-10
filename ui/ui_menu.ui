@@ -19,7 +19,7 @@
   <property name="maximumSize">
    <size>
     <width>1920</width>
-    <height>1280</height>
+    <height>1200</height>
    </size>
   </property>
   <property name="font">
@@ -59,7 +59,7 @@
     <property name="maximumSize">
      <size>
       <width>1920</width>
-      <height>1280</height>
+      <height>1200</height>
      </size>
     </property>
     <property name="font">
