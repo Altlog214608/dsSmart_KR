@@ -27,6 +27,8 @@ from PySide6.QtWidgets import (
     QFileDialog,
     QHeaderView
 )
+from PySide6.QtPrintSupport import QPrinter, QPrintDialog
+
 
 import dsSerial
 import dsComm
@@ -618,6 +620,10 @@ class UiDlg(QWidget):
         self.ui_test_identification_results.pushButton_save.clicked.connect(
             self.uiTestIdentificationRecordSave
         )
+        # ↓ 신규: 인쇄 버튼 연결 (추가)
+        self.ui_test_identification_results.pushButton_print.clicked.connect(
+            self.uiTestIdentificationResultsPrint
+        )
 
         self.setWindowBySetting(self.ui_test_identification_results)
         self.gradeTestResultsIdentification(0, 0)
@@ -632,6 +638,11 @@ class UiDlg(QWidget):
         self.ui_test_identification_record.pushButton_save.clicked.connect(
             self.uiTestIdentificationRecordSave
         )
+        
+        self.ui_test_identification_record.pushButton_print.clicked.connect(
+            self.uiTestIdentificationRecordPrint
+        )
+        
         self.ui_test_identification_record.ui_menu_btn_quit.clicked.connect(
             self.uiTestIdentificationRecordConfirm
         )
@@ -670,6 +681,8 @@ class UiDlg(QWidget):
         self.ui_test_identification_result_confirm.setWindowModality(
             Qt.WindowModality.ApplicationModal
         )
+
+        
 
     """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" ""
 
@@ -6522,6 +6535,45 @@ class UiDlg(QWidget):
 
         # 닫기
         workbook.close()
+
+
+    def printWidget(self, widget, title="검사 결과"):
+        try:
+            printer = QPrinter(QPrinter.PrinterMode.HighResolution)
+            printer.setFullPage(True)
+            printer.setDocName(title)
+
+            dialog = QPrintDialog(printer, self)
+            dialog.setWindowTitle("인쇄")
+            if dialog.exec() != QPrintDialog.DialogCode.Accepted:
+                return  # 사용자가 취소
+
+            # 위젯을 페이지에 맞춰 스케일링해서 렌더링
+            painter = QtGui.QPainter(printer)
+            try:
+                page_rect = printer.pageRect()
+                widget_rect = widget.rect()
+
+                sx = page_rect.width()  / widget_rect.width()
+                sy = page_rect.height() / widget_rect.height()
+                scale = min(sx, sy)
+
+                painter.translate(page_rect.x(), page_rect.y())
+                painter.scale(scale, scale)
+                widget.render(painter)  # 현재 위젯 모양 그대로 출력
+            finally:
+                painter.end()
+        except Exception as err:
+            # 기존 메시지 다이얼로그 활용
+            self.uiDlgMsgText(dsText.errorText.get("print_fail", "인쇄 중 오류가 발생했습니다."))
+    
+    def uiTestIdentificationResultsPrint(self):
+        # 인지검사 결과 페이지 전체를 출력
+        self.printWidget(self.ui_test_identification_results, title="인지검사 결과")
+
+    def uiTestIdentificationRecordPrint(self):
+        # 기록 조회 페이지 전체를 출력 (필요한 경우)
+        self.printWidget(self.ui_test_identification_record, title="인지검사 기록")
 
     """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" ""
 
