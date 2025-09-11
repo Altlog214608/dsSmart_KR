@@ -4457,6 +4457,10 @@ class UiDlg(QWidget):
         import os
         from datetime import datetime
         from PySide6.QtWidgets import QFileDialog, QMessageBox
+        
+        # [저장 직전 초기화/갱신]
+        self.last_saved_excel_path = None                     # 이전 저장 경로 기억 지우기
+        # self.record_test_date_time = datetime.now().strftime("%Y-%m-%d %H:%M")  # 항상 현재 시각으로
 
         try:
             # 기본 파일명
@@ -6619,6 +6623,11 @@ class UiDlg(QWidget):
 
     def uiTestIdentificationResultsPrintExcel(self):    
         import os, re
+
+        # [인쇄 직전 초기화/갱신]
+        self.last_saved_excel_path = None
+        # self.record_test_date_time = datetime.now().strftime("%Y-%m-%d %H:%M")  # 항상 현재 시각 반영
+
         # 저장 폴더
         base_dir = os.path.join(os.getcwd(), dsText.resultText.get('results_data_raw_path','results'))
         os.makedirs(base_dir, exist_ok=True)
