@@ -1160,12 +1160,12 @@
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-                        background-image : url(./ui/images/common_locale/btn_save_file.png);
+                        background-image : url(./ui/images/common_locale/btn_print.png);
                         border : 0px;
                         }
 
                         QPushButton::hover{
-                        background-image : url(./ui/images/common_locale/btn_save_file_over.png);
+                        background-image : url(./ui/images/common_locale/btn_print_over.png);
                         border : 0px;
                         }</string>
     </property>

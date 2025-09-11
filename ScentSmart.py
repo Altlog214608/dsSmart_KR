@@ -2085,13 +2085,13 @@ class UiDlg(QWidget):
             ]
         )
         self.ui_test_identification_record.resultTable.setColumnWidth(
-            0, 300
+            0, 250
         )  # 1번째 열 크기 늘임
         self.ui_test_identification_record.resultTable.setColumnWidth(
-            1, 300
+            1, 250
         )  # 2번째 열 크기 늘임
         self.ui_test_identification_record.resultTable.setColumnWidth(
-            2, 210
+            2, 250
         )  # 3번째 열 크기 늘임
         # Width 825 맞추면 됨
         count_correct = 0
@@ -4179,13 +4179,13 @@ class UiDlg(QWidget):
             ]
         )
         self.ui_test_identification_results.resultTable.setColumnWidth(
-            0, 300
+            0, 250
         )  # 1번째 열 크기 늘임
         self.ui_test_identification_results.resultTable.setColumnWidth(
-            1, 300
+            1, 250
         )  # 2번째 열 크기 늘임
         self.ui_test_identification_results.resultTable.setColumnWidth(
-            2, 210
+            2, 250
         )  # 3번째 열 크기 늘임
         # Width 825 맞추면 됨
         count_correct = 0

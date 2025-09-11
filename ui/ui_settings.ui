@@ -937,8 +937,8 @@ QComboBox QAbstractItemView {
    <widget class="QPushButton" name="pushButton_back">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>870</y>
+      <x>150</x>
+      <y>810</y>
       <width>320</width>
       <height>100</height>
      </rect>
@@ -967,8 +967,8 @@ QPushButton::hover{
    <widget class="QPushButton" name="pushButton_update_settings">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>870</y>
+      <x>530</x>
+      <y>810</y>
       <width>320</width>
       <height>100</height>
      </rect>
