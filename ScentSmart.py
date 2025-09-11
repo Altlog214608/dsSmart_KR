@@ -2083,7 +2083,7 @@ class UiDlg(QWidget):
 
         id_results = [dsTestID.id_results_title]
 
-        db_offset = 4
+        db_offset = 6
 
         # --- 추가: "빈값" 판정 함수 (문자열 '0'과 공백까지 비움으로 처리) ---
         def _is_blank(x):
@@ -5675,10 +5675,17 @@ class UiDlg(QWidget):
             row_idx_ox  = 33  # "O/X"
             ox_row_excel = row_idx_ox + 1       # 엑셀 표시용
 
+                # ★ A열 헤더 고정
+            worksheet_main.write(row_idx_num, 0, "문항", format_small_table_title)
+            worksheet_main.write(row_idx_ans, 0, "정답", format_small_table_title)
+            worksheet_main.write(row_idx_sel, 0, "선택", format_small_table_title)
+            worksheet_main.write(row_idx_ox,  0, "O/X",  format_small_table_title)
+
             m_col = col_start
-            for (index, answer, choice_response, is_choice_correct, _str_response, _is_str_correct) in rows:
-                worksheet_main.write(row_idx_num, m_col, index, format_table)
-                worksheet_main.write(row_idx_ans, m_col, answer, format_table)
+            # ★ 번호는 j=1..8로 강제, 데이터는 B부터 오른쪽으로
+            for j, (_index, answer, choice_response, is_choice_correct, _s, _ss) in enumerate(rows, start=1):
+                worksheet_main.write(row_idx_num, m_col, j,       format_table)  # ← j 사용
+                worksheet_main.write(row_idx_ans, m_col, answer,  format_table)
                 worksheet_main.write(row_idx_sel, m_col, choice_response, format_table)
                 worksheet_main.write(row_idx_ox,  m_col, dsUtils.isCorrectToOX(is_choice_correct), format_table)
                 m_col += 1
@@ -6098,10 +6105,10 @@ class UiDlg(QWidget):
         if len(dsTestID.id_results) > 1:
             worksheet_id = workbook.add_worksheet("Identification")
             row = 0
-            m_col = 0
+            m_col = 1
 
             # ★ 헤더 제외
-            id_rows = dsTestID.id_results[1:]
+            id_rows = dsTestID.id_results[1:9]
             total_q = len(id_rows)
 
             for (index, answer, choice_response, is_choice_correct, str_response, is_str_correct) in id_rows:
@@ -6115,6 +6122,28 @@ class UiDlg(QWidget):
                 worksheet_main.write(31, m_col, answer, format_table)
                 worksheet_main.write(32, m_col, choice_response, format_table)
                 worksheet_main.write(33, m_col, dsUtils.isCorrectToOX(is_choice_correct), format_table)
+                m_col += 1
+
+
+            col_start = 3  # D열
+
+            worksheet_main.write(30, col_start,   "문항", format_small_table_title)
+            worksheet_main.write(31, col_start,   "정답", format_small_table_title)
+            worksheet_main.write(32, col_start,   "선택", format_small_table_title)
+            worksheet_main.write(33, col_start,   "O/X",  format_small_table_title)
+
+            # # ★ 메인 시트 가로표: A열 헤더 + B열부터 데이터
+            # worksheet_main.write(30, 0, "문항", format_small_table_title)
+            # worksheet_main.write(31, 0, "정답", format_small_table_title)
+            # worksheet_main.write(32, 0, "선택", format_small_table_title)
+            # worksheet_main.write(33, 0, "O/X",  format_small_table_title)
+            
+            m_col = col_start + 1
+            for j, (_idx, ans, sel, ok, _s, _ss) in enumerate(id_rows, start=1):
+                worksheet_main.write(30, m_col, j,    format_table)                      # ← j 사용
+                worksheet_main.write(31, m_col, ans,  format_table)
+                worksheet_main.write(32, m_col, sel,  format_table)
+                worksheet_main.write(33, m_col, dsUtils.isCorrectToOX(ok), format_table)
                 m_col += 1
 
             # 점수 정보 (동적)
