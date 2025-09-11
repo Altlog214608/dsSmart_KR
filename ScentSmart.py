@@ -4492,6 +4492,9 @@ class UiDlg(QWidget):
                 self.record_birth_date = getattr(self, 'birth_date', '')
             if not getattr(self, 'record_gender', None):
                 self.record_gender = getattr(self, 'gender', '')
+                
+            # 항상 현재 시각으로 기록 (이전 값 보존하지 않음)
+            # self.record_test_date_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             if not getattr(self, 'record_test_date_time', None):
                 self.record_test_date_time = now.strftime("%Y-%m-%d %H:%M")
 
@@ -5665,10 +5668,17 @@ class UiDlg(QWidget):
         # ---------- 인지 결과 테이블 (가로) ----------
         # self.record_id_results = [헤더, (index, answer, choice_response, is_choice_correct, ...), ...]
         if len(self.record_id_results) > 1:
-            rows = self.record_id_results[1:9]   # ★ 헤더 제외
+            # record_id_results가 헤더 포함인지 확인 후 처리
+            rows_src = self.record_id_results or []
+            if rows_src and isinstance(rows_src[0][0], str):  # 첫 행이 "문항" 같은 헤더일 때
+                rows = rows_src[1:]
+            else:
+                rows = rows_src
+
+            rows = rows[:8]  # 최대 8문항만
             total_q = len(rows)
 
-            col_start = 1  # B열부터
+            col_start = 3  # B열부터
             row_idx_num = 30  # "문항" 행 (0-index)
             row_idx_ans = 31  # "정답"
             row_idx_sel = 32  # "선택"
@@ -5676,10 +5686,10 @@ class UiDlg(QWidget):
             ox_row_excel = row_idx_ox + 1       # 엑셀 표시용
 
                 # ★ A열 헤더 고정
-            worksheet_main.write(row_idx_num, 0, "문항", format_small_table_title)
-            worksheet_main.write(row_idx_ans, 0, "정답", format_small_table_title)
-            worksheet_main.write(row_idx_sel, 0, "선택", format_small_table_title)
-            worksheet_main.write(row_idx_ox,  0, "O/X",  format_small_table_title)
+            worksheet_main.write(row_idx_num, 2, "문항", format_small_table_title)
+            worksheet_main.write(row_idx_ans, 2, "정답", format_small_table_title)
+            worksheet_main.write(row_idx_sel, 2, "선택", format_small_table_title)
+            worksheet_main.write(row_idx_ox,  2, "O/X",  format_small_table_title)
 
             m_col = col_start
             # ★ 번호는 j=1..8로 강제, 데이터는 B부터 오른쪽으로
