@@ -76,7 +76,7 @@ dsBtnImg = {
     '풀냄새': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_grass.png)}',
 
     '마늘': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_garlic.png)}',
-    '페퍼민트': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_peppermint.png)}',
+    '박하': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_peppermint.png)}',
     '바나나': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_banana.png)}',
     '생선': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_fish.png)}',
 
@@ -88,7 +88,7 @@ dsBtnImg = {
     '나무': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_tree.png)}',
     '땅콩': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_peanut.png)}',
     '재/연기': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_ash.png)}',
-    '베이비파우더': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_babypowder.png)}',
+    '화장품': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_babypowder.png)}',
     '스피아민트': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_mint.png)}',
     '옥수수': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_corn.png)}',
     '인삼': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_redginseng.png)}',

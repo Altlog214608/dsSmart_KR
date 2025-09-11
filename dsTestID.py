@@ -29,12 +29,12 @@ id_test_data = [
      'choice5':'녹차','choice6':'양파','choice7':'옥수수','choice8':'장미','choice9':'국수','choice10':'가죽'},
 
     {'choice1': '빵','choice2': '겨자','choice3': '오징어','choice4': '마늘','answer': '마늘','scent_no': 4,'outlet_no': 1,
-     'choice5':'키위','choice6':'페퍼민트','choice7':'바나나','choice8':'생강','choice9':'장미','choice10':'사과'},
+     'choice5':'키위','choice6':'박하','choice7':'바나나','choice8':'생강','choice9':'장미','choice10':'사과'},
 
     {'choice1': '쌀','choice2': '사과','choice3': '소나무','choice4': '고구마','answer': '소나무','scent_no': 5,'outlet_no': 1,
      'choice5':'겨자','choice6':'딸기','choice7':'재/연기','choice8':'홍삼','choice9':'멜론','choice10':'계란'},
 
-    {'choice1': '생선','choice2': '베이비파우더','choice3': '카레','choice4': '키위','answer': '베이비파우더','scent_no': 6,'outlet_no': 1,
+    {'choice1': '생선','choice2': '화장품','choice3': '카레','choice4': '키위','answer': '화장품','scent_no': 6,'outlet_no': 1,
      'choice5':'버섯','choice6':'레몬','choice7':'양파','choice8':'사과','choice9':'국수','choice10':'장미'},
 
     {'choice1': '녹차','choice2': '마늘','choice3': '간장','choice4': '쇠','answer': '녹차','scent_no': 7,'outlet_no': 1,
@@ -44,12 +44,12 @@ id_test_data = [
      'choice5':'사과','choice6':'쇠','choice7':'버섯','choice8':'소나무','choice9':'레몬','choice10':'장미'},
 
     {'choice1': '나무','choice2': '가죽','choice3': '복숭아','choice4': '김치','answer': '복숭아','scent_no': 9,'outlet_no': 1,
-     'choice5':'페퍼민트','choice6':'국수','choice7':'멜론','choice8':'재/연기','choice9':'겨자','choice10':'키위'},
+     'choice5':'박하','choice6':'국수','choice7':'멜론','choice8':'재/연기','choice9':'겨자','choice10':'키위'},
 
     {'choice1': '후추','choice2': '옥수수','choice3': '바나나','choice4': '잔디','answer': '후추','scent_no': 10,'outlet_no': 1,
      'choice5':'장미','choice6':'겨자','choice7':'복숭아','choice8':'홍삼','choice9':'사과','choice10':'멜론'},
 
-    {'choice1': '꿀','choice2': '버섯','choice3': '페퍼민트','choice4': '담배','answer': '페퍼민트','scent_no': 11,'outlet_no': 1,
+    {'choice1': '꿀','choice2': '버섯','choice3': '박하','choice4': '담배','answer': '박하','scent_no': 11,'outlet_no': 1,
      'choice5':'레몬','choice6':'국수','choice7':'장미','choice8':'사과','choice9':'김치','choice10':'초콜릿'},
 
     {'choice1': '청포도','choice2': '비누','choice3': '국수','choice4': '고무','answer': '비누','scent_no': 12,'outlet_no': 1,
@@ -97,10 +97,10 @@ id_test_data2 = [{'choice1': '땅콩',
                  'outlet_no': 1},
 
                 {'choice1': '생선',
-                 'choice2': '베이비파우더',
+                 'choice2': '화장품',
                  'choice3': '카레',
                  'choice4': '키위',
-                 'answer': '베이비파우더',
+                 'answer': '화장품',
                  'scent_no': 6,
                  'outlet_no': 1},
 
@@ -138,9 +138,9 @@ id_test_data2 = [{'choice1': '땅콩',
 
                 {'choice1': '꿀',
                  'choice2': '버섯',
-                 'choice3': '페퍼민트',
+                 'choice3': '박하',
                  'choice4': '담배',
-                 'answer': '페퍼민트',
+                 'answer': '박하',
                  'scent_no': 11,
                  'outlet_no': 1},
 
