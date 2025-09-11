@@ -2043,7 +2043,8 @@ class UiDlg(QWidget):
 
     def dbSaveTestID(self, id_results):
         print("dbSaveTestID")
-        db_results = [0 for i in range(29)]
+        # 변경
+        db_results = ["" for _ in range(29)]
         db_results[0] = self.name  # 이름
         db_results[1] = self.birth_date  # 생년월일
         db_results[2] = self.gender  # 성별
@@ -2051,11 +2052,16 @@ class UiDlg(QWidget):
 
         db_offset = 4
         score = 0
-        for num in range(1, 1 + len(dsTestID.id_test_data)):  # 12문항이므로 1+12 까지
-            db_results[db_offset + ((num * 2) - 1)] = id_results[num][1]  # 정답 4+1 4+3
-            db_results[db_offset + (num * 2)] = id_results[num][2]  # 응답 4+2 4+4
-            if id_results[num][3] == 1:
+
+        # ⬇ 추가: 실제로 응답(정답/선택) 값이 있는 행만 추리기
+        body = [r for r in id_results[1:] if r[1] not in ("", None, 0) or r[2] not in ("", None, 0)]
+
+        for num, row in enumerate(body, start=1):
+            db_results[db_offset + ((num * 2) - 1)] = row[1]  # 정답
+            db_results[db_offset + (num * 2)] = row[2]        # 응답
+            if row[3] == 1:
                 score += 1
+
         db_results[4] = score  # 점수
         print(db_results)
         # self.dbLoadTestId(db_results) # 테스트
@@ -2064,36 +2070,30 @@ class UiDlg(QWidget):
 
     def dbLoadTestId(self, db_results):
         print("dbLoadTestId")
-        name = db_results[1]  # 이름
-        birth_date = db_results[2]  # 생년월일
-        gender = db_results[3]  # 성별
-        test_date_time = db_results[4]  # 검사일시
+        # 메타데이터 인덱스
+        name = db_results[0]
+        birth_date = db_results[1]
+        gender = db_results[2]
+        test_date_time = db_results[3]
 
-        print(name, birth_date, gender, test_date_time)
+        id_results = [dsTestID.id_results_title]
 
-        id_results = []
-        id_results.append(dsTestID.id_results_title)
+        db_offset = 4
 
-        db_offset = 5
-        score = 0
-        for num in range(1, 1 + len(dsTestID.id_test_data)):  # 12문항이므로 1+12 까지
-            if (
-                db_results[db_offset + ((num * 2) - 1)]
-                == db_results[db_offset + (num * 2)]
-            ):
-                is_choice_correct = 1
-            else:
-                is_choice_correct = 0
-            id_results.append(
-                [
-                    num,
-                    db_results[db_offset + ((num * 2) - 1)],
-                    db_results[db_offset + (num * 2)],
-                    is_choice_correct,
-                    "주관식X",
-                    0,
-                ]
-            )
+        for num in range(1, 1 + len(dsTestID.id_test_data)):
+            ans  = db_results[db_offset + ((num * 2) - 1)]
+            resp = db_results[db_offset + (num * 2)]
+
+            # ⬇⬇⬇ 요 블록을 'ans/resp 읽은 직후'에 넣는다
+            if (ans in ("", None, 0)) and (resp in ("", None, 0)):
+                # 둘 다 비어 있으면 유령 문항이므로 스킵
+                continue
+            # ⬆⬆⬆
+
+            is_choice_correct = 1 if ans == resp else 0
+
+            id_results.append([num, ans, resp, is_choice_correct, "주관식X", 0])
+
         print(id_results)
         return id_results
 
@@ -5600,11 +5600,18 @@ class UiDlg(QWidget):
                 "categories": "=Sheet1!$F$2:$F$3",
                 "values": "=Sheet1!$G$2:$G$3",
                 "data_labels": {"value": True, "percentage": True},
+                # ⬇⬇⬇ 색상/슬라이스 개별 스타일
+                "points": [
+                    {"fill": {"color": "#4F81BD"}},  # 정답 슬라이스
+                    {"fill": {"color": "#A39B9B"}},  # 오답 슬라이스
+                ],
             }
         )
         chart.set_title({"name": dsText.resultText["result_test_identification_title"]})
         # chart.set_rotation(90)
-        chart.set_style(10)
+        chart.set_rotation(90)           # 시작 각도(선택)
+        chart.set_legend({"position": "right"})
+        # chart.set_style(10)
         worksheet.insert_chart("F4", chart, {"x_offset": 5, "y_offset": 5})
         workbook.close()
 
@@ -5818,11 +5825,19 @@ class UiDlg(QWidget):
                 "categories": "=Sheet1!$F$2:$F$3",
                 "values": "=Sheet1!$G$2:$G$3",
                 "data_labels": {"value": True, "percentage": True},
+                # ⬇⬇⬇ 색상/슬라이스 개별 스타일
+                "points": [
+                    {"fill": {"color": "#4F81BD"}},  # 정답 슬라이스
+                    {"fill": {"color": "#AFA5A5"}},  # 오답 슬라이스
+                ],
             }
         )
         chart.set_title({"name": dsText.resultText["result_test_identification_title"]})
         # chart.set_rotation(90)
-        chart.set_style(10)
+        chart.set_rotation(90)           # 시작 각도(선택)
+        chart.set_legend({"position": "right"})
+
+        # chart.set_style(10)
         worksheet.insert_chart("F4", chart, {"x_offset": 5, "y_offset": 5})
         workbook.close()
         # 암호화
@@ -6195,7 +6210,7 @@ class UiDlg(QWidget):
             worksheet_id.write(
                 "F3", dsText.resultText["result_test_identification_incorrect"]
             )
-            worksheet_id.write("G3", "=12-G2")
+            worksheet_id.write("G3", "= {total_q} - G2")
             # 차트 만들기
             chart_id = workbook.add_chart({"type": "pie"})
             chart_id.add_series(
@@ -6204,13 +6219,17 @@ class UiDlg(QWidget):
                     "categories": "=Identification!$F$2:$F$3",
                     "values": "=Identification!$G$2:$G$3",
                     "data_labels": {"value": True, "percentage": True},
+                    "points": [
+                        {"fill": {"color": "#4F81BD"}},  # 정답
+                        {"fill": {"color": "#817F7F"}}   # 오답
+                    ],
                 }
             )
             chart_id.set_title(
                 {"name": dsText.resultText["result_test_identification_title"]}
             )
-            # chart_id.set_rotation(90)
-            chart_id.set_style(10)
+            chart_id.set_rotation(90)
+            # chart_id.set_style(10)
             worksheet_id.insert_chart("F4", chart_id, {"x_offset": 5, "y_offset": 5})
 
         # 닫기
@@ -6580,7 +6599,7 @@ class UiDlg(QWidget):
             worksheet_id.write(
                 "F3", dsText.resultText["result_test_identification_incorrect"]
             )
-            worksheet_id.write("G3", "=12-G2")
+            worksheet_id.write("G3", "={total_q} - G2")
             # 차트 만들기
             chart_id = workbook.add_chart({"type": "pie"})
             chart_id.add_series(
@@ -6589,13 +6608,17 @@ class UiDlg(QWidget):
                     "categories": "=Identification!$F$2:$F$3",
                     "values": "=Identification!$G$2:$G$3",
                     "data_labels": {"value": True, "percentage": True},
+                    "points": [
+                        {"fill": {"color": "#4F81BD"}},  # 정답
+                        {"fill": {"color": "#7A7575"}}   # 오답
+                    ],
                 }
             )
             chart_id.set_title(
                 {"name": dsText.resultText["result_test_identification_title"]}
             )
-            # chart_id.set_rotation(90)
-            chart_id.set_style(10)
+            chart_id.set_rotation(90)
+            # chart_id.set_style(10)
             worksheet_id.insert_chart("F4", chart_id, {"x_offset": 5, "y_offset": 5})
 
         # 닫기
