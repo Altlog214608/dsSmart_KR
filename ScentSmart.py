@@ -2043,29 +2043,34 @@ class UiDlg(QWidget):
 
     def dbSaveTestID(self, id_results):
         print("dbSaveTestID")
-        # 변경
+
+        # 이름/생년월일/성별/검사일시
         db_results = ["" for _ in range(29)]
-        db_results[0] = self.name  # 이름
-        db_results[1] = self.birth_date  # 생년월일
-        db_results[2] = self.gender  # 성별
-        db_results[3] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # 검사일시
+        db_results[0] = self.name
+        db_results[1] = self.birth_date
+        db_results[2] = self.gender
+        db_results[3] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         db_offset = 4
         score = 0
 
-        # ⬇ 추가: 실제로 응답(정답/선택) 값이 있는 행만 추리기
-        body = [r for r in id_results[1:] if r[1] not in ("", None, 0) or r[2] not in ("", None, 0)]
+        # 헤더(id_results[0]) 제외 + 실제 응답 있는 행만
+        body = [
+            r for r in id_results[1:]
+            if (r[1] not in ("", None, 0)) or (r[2] not in ("", None, 0))
+        ]
 
         for num, row in enumerate(body, start=1):
-            db_results[db_offset + ((num * 2) - 1)] = row[1]  # 정답
-            db_results[db_offset + (num * 2)] = row[2]        # 응답
+            # 정답/응답을 짝수 칸으로 순차 저장
+            db_results[db_offset + (num * 2) - 1] = row[1]  # 정답
+            db_results[db_offset + (num * 2)]     = row[2]  # 응답
             if row[3] == 1:
                 score += 1
 
-        db_results[4] = score  # 점수
+        # 점수는 문항 데이터와 분리된 고정 칸에 저장 (DB 스키마에 맞게 위치 조정)
+        db_results[24] = score
+
         print(db_results)
-        # self.dbLoadTestId(db_results) # 테스트
-        # DB insert
         dsTestDB.insertTableTestID(*tuple(db_results))
 
     def dbLoadTestId(self, db_results):
@@ -2080,27 +2085,42 @@ class UiDlg(QWidget):
 
         db_offset = 4
 
-        for num in range(1, 1 + len(dsTestID.id_test_data)):
-            ans  = db_results[db_offset + ((num * 2) - 1)]
-            resp = db_results[db_offset + (num * 2)]
+        # --- 추가: "빈값" 판정 함수 (문자열 '0'과 공백까지 비움으로 처리) ---
+        def _is_blank(x):
+            if x is None:
+                return True
+            if isinstance(x, (int, float)) and x == 0:
+                return True
+            if isinstance(x, str):
+                xs = x.strip()
+                if xs == "" or xs == "0":
+                    return True
+            return False
 
-            # ⬇⬇⬇ 요 블록을 'ans/resp 읽은 직후'에 넣는다
-            if (ans in ("", None, 0)) and (resp in ("", None, 0)):
-                # 둘 다 비어 있으면 유령 문항이므로 스킵
+        # DB row 구조: [메타 4칸] + (정답,응답) * N + ... 점수 등
+        # 페어 최대 개수 계산
+        max_pairs = (len(db_results) - db_offset) // 2
+
+        num = 1
+        for i in range(max_pairs):
+            ans  = db_results[db_offset + i*2 + 0]   # (정답)
+            resp = db_results[db_offset + i*2 + 1]   # (응답)
+
+            # 🔴 중요: 둘 다 비어있으면(빈문자/공백/'0'/0) = 유령문항 → 스킵
+            if _is_blank(ans) and _is_blank(resp):
                 continue
-            # ⬆⬆⬆
 
-            is_choice_correct = 1 if ans == resp else 0
+            # 문자열 통일 (None 방지)
+            ans  = "" if _is_blank(ans)  else str(ans)
+            resp = "" if _is_blank(resp) else str(resp)
 
+            is_choice_correct = 1 if ans == resp and ans != "" else 0
             id_results.append([num, ans, resp, is_choice_correct, "주관식X", 0])
+            num += 1
 
         print(id_results)
         return id_results
 
-    # [2, '최이순', '1975-03-01', '남성', '2025-03-22 23:27:58', 9, '장미', '녹차', '장미', '녹차', '초콜릿',
-    # [1, 9, '장미', 0, '주관식X', 0],
-    # [2, '녹차', '장미', 0, '주관식X', 0],
-    # [3, '녹차', '초콜릿', 0, '주관식X', 0]
 
     # 환자 정보 페이지에서 검사 결과 구성할 때
     def makeSubjectTestRecordIdentification(
@@ -4482,27 +4502,7 @@ class UiDlg(QWidget):
             QMessageBox.information(self, "완료", "파일 저장이 완료되었습니다.")
         except Exception as e:
             QMessageBox.critical(self, "파일 저장 실패", f"파일 저장 중 오류가 발생했습니다.\n{e}")
-    # def uiTestIdentificationRecordSave(self):
-    #     try:
-    #         file_name = self.record_name
-    #         # self.record_test_date_time
-    #         # 파일 저장 대화상자 열기
-    #         options = QFileDialog.Options()
-    #         file_path, _ = QFileDialog.getSaveFileName(
-    #             None,
-    #             "파일 저장",
-    #             file_name,
-    #             "Excel 통합 문서 (*.xlsx);;모든 파일 (*.*)",
-    #             options=options,
-    #         )
-    #         if file_path:  # 사용자가 파일을 선택했을 경우
-    #             # with open(file_path, 'w', encoding='utf-8') as file:
-    #             #     file.write("저장할 내용 입력")
-    #             # self.saveDataIdentificationExcel(file_path, "1234")
-    #             self.saveReportIdentification(file_path)
-    #         print("Save File Path:", file_path)
-    #     except Exception as err:
-    #         self.uiDlgMsgText(dsText.errorText["file_save_fail"])
+    
 
     """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" ""
 
@@ -5538,31 +5538,37 @@ class UiDlg(QWidget):
             )
         )
         workbook = xlsxwriter.Workbook(save_file)
-        # 엑셀 채우기
-        worksheet = workbook.add_worksheet()
 
-        row = 0
-        for (
-            index,
-            answer,
-            choice_response,
-            is_choice_correct,
-            str_response,
-            is_str_correct,
-        ) in dsTestID.id_results:
-            worksheet.write(row, 0, index)
-            worksheet.write(row, 1, answer)
-            worksheet.write(row, 2, choice_response)
-            worksheet.write(row, 3, is_choice_correct)
-            # worksheet.write(row, 4, str_response) # 주관식 불필요
-            # worksheet.write(row, 5, is_str_correct) # 주관식 불필요
+        # 엑셀 채우기
+        worksheet = workbook.add_worksheet("IdentificationTest")
+
+        # 헤더 작성
+        worksheet.write(0, 0, "정답")
+        worksheet.write(0, 1, "선택")
+        worksheet.write(0, 2, "정답여부")
+
+        # 데이터 작성
+        row = 1
+        for (_idx, answer, choice_response, is_choice_correct, _str_response, _is_str_correct) in dsTestID.id_results:
+            worksheet.write(row, 0, answer)
+            worksheet.write(row, 1, choice_response)
+            worksheet.write(row, 2, is_choice_correct)  # 1 or 0
             row += 1
 
+        total_q = len(dsTestID.id_results)
+
+        # 결과 요약 (F열/G열)
+        worksheet.write("F1", "인지검사 결과")
+        worksheet.write("F2", "정답 수")
+        worksheet.write("G2", f"=COUNTIF(C2:C{total_q+1},1)")
+        worksheet.write("F3", "오답 수")
+        worksheet.write("G3", f"={total_q}-G2")
+
         # 점수 정보 넣기
-        worksheet.write("F1", dsText.resultText["result_test_identification_title"])
-        worksheet.write("F2", dsText.resultText["result_test_identification_correct"])
-        # worksheet.write('G2', '=COUNTIF(D:D, 1)')
-        worksheet.write("F3", dsText.resultText["result_test_identification_incorrect"])
+        # worksheet.write("F1", dsText.resultText["result_test_identification_title"])
+        # worksheet.write("F2", dsText.resultText["result_test_identification_correct"])
+        # # worksheet.write('G2', '=COUNTIF(D:D, 1)')
+        # worksheet.write("F3", dsText.resultText["result_test_identification_incorrect"])
 
         # [수정 코드: 총 문항수 동적 계산]
         # total_q = len(dsTestID.id_test_data)   # 현재 검사에 실제 사용된 문항 수 (8)
@@ -5619,229 +5625,144 @@ class UiDlg(QWidget):
     # 기록을 Excel로 저장 (동적 문항수 대응)
 
     def saveReportIdentification(self, save_file):
-
-
         workbook = xlsxwriter.Workbook(save_file)
-        worksheet_main = workbook.add_worksheet(dsText.reportText["report_sheet"])
-        worksheet_main.set_column("A:M", 5.4)  # 기본 셀 너비 (필요시 확대)
+        sheet_name = dsText.reportText["report_sheet"]
+        worksheet_main = workbook.add_worksheet(sheet_name)
+        worksheet_main.set_column("A:M", 5.4)
 
-        # ---------- 셀 포맷 ----------
-        format_title = workbook.add_format(
-            {"bold": True, "font_size": 16, "align": "center", "valign": "vcenter"}
-        )
-        format_small_title = workbook.add_format(
-            {"bold": True, "font_size": 11, "align": "left", "valign": "vcenter"}
-        )
-        format_small_table_title = workbook.add_format(
-            {
-                "bold": True,
-                "font_size": 11,
-                "border": 1,
-                "align": "center",
-                "valign": "vcenter",
-            }
-        )
-        format_score = workbook.add_format(
-            {"bold": True, "font_size": 11, "align": "right", "valign": "vcenter"}
-        )
-        format_score_base = workbook.add_format(
-            {"bold": True, "font_size": 11, "align": "left", "valign": "vcenter"}
-        )
-        format_table = workbook.add_format(
-            {
-                "font_size": 9,
-                "border": 1,
-                "align": "center",
-                "valign": "vcenter",
-                "shrink": True,
-            }
-        )
+        # ---------- 포맷 ----------
+        format_title = workbook.add_format({"bold": True, "font_size": 16, "align": "center", "valign": "vcenter"})
+        format_small_title = workbook.add_format({"bold": True, "font_size": 11, "align": "left", "valign": "vcenter"})
+        format_small_table_title = workbook.add_format({"bold": True, "font_size": 11, "border": 1, "align": "center", "valign": "vcenter"})
+        format_score = workbook.add_format({"bold": True, "font_size": 11, "align": "right", "valign": "vcenter"})
+        format_score_base = workbook.add_format({"bold": True, "font_size": 11, "align": "left", "valign": "vcenter"})
+        format_table = workbook.add_format({"font_size": 9, "border": 1, "align": "center", "valign": "vcenter", "shrink": True})
 
-        # ---------- 메인 시트 일반 정보 ----------
+        # ---------- 메타 ----------
         worksheet_main.write("G1", dsText.reportText["report_title"], format_title)
         worksheet_main.write("A7", dsText.reportText["report_name"], format_small_title)
         worksheet_main.write("C7", self.record_name)
-        worksheet_main.write(
-            "A8", dsText.reportText["report_birth_date"], format_small_title
-        )
+        worksheet_main.write("A8", dsText.reportText["report_birth_date"], format_small_title)
         worksheet_main.write("C8", self.record_birth_date)
         worksheet_main.write("A9", dsText.reportText["report_gender"], format_small_title)
         worksheet_main.write("C9", self.record_gender)
         worksheet_main.write("A10", dsText.reportText["report_date"], format_small_title)
         worksheet_main.write("C10", self.record_test_date_time)
 
-        worksheet_main.merge_range(
-            "G3:I3", dsText.reportText["report_ammonia"], format_small_table_title
-        )
-        worksheet_main.merge_range("G4:I5", "", format_small_table_title)  # 빈칸
-        worksheet_main.merge_range(
-            "J3:K3", dsText.reportText["report_total_score"], format_small_table_title
-        )
-        worksheet_main.merge_range(
-            "L3:M3", dsText.reportText["report_nomosmia"], format_small_table_title
-        )
-        worksheet_main.merge_range(
-            "L4:M4", dsText.reportText["report_hyposmia"], format_small_table_title
-        )
-        worksheet_main.merge_range(
-            "L5:M5", dsText.reportText["report_anosmia"], format_small_table_title
-        )
+        worksheet_main.merge_range("G3:I3", dsText.reportText["report_ammonia"], format_small_table_title)
+        worksheet_main.merge_range("G4:I5", "", format_small_table_title)
+        worksheet_main.merge_range("J3:K3", dsText.reportText["report_total_score"], format_small_table_title)
+        worksheet_main.merge_range("L3:M3", dsText.reportText["report_nomosmia"], format_small_table_title)
+        worksheet_main.merge_range("L4:M4", dsText.reportText["report_hyposmia"], format_small_table_title)
+        worksheet_main.merge_range("L5:M5", dsText.reportText["report_anosmia"], format_small_table_title)
 
-        # ---------- 점수 정보 영역 ----------
-        worksheet_main.write(
-            "A30", dsText.resultText["result_test_identification_title"], format_small_title
-        )
-        worksheet_main.write(
-            "K30", dsText.resultText["result_test_identification_point"] + ":", format_score
-        )
-        worksheet_main.write(
-            "L35",
-            dsText.resultText["result_test_identification_correct"],
-            format_score_base,
-        )
-        worksheet_main.write(
-            "L36",
-            dsText.resultText["result_test_identification_incorrect"],
-            format_score_base,
-        )
+        # ---------- 점수 영역 ----------
+        worksheet_main.write("A30", dsText.resultText["result_test_identification_title"], format_small_title)
+        worksheet_main.write("K30", dsText.resultText["result_test_identification_point"] + ":", format_score)
+        worksheet_main.write("L35", dsText.resultText["result_test_identification_correct"], format_score_base)
+        worksheet_main.write("L36", dsText.resultText["result_test_identification_incorrect"], format_score_base)
 
-        # ---------- 인지 결과 테이블 (가로 방향) ----------
-        # record_id_results: (index, answer, choice_response, is_choice_correct, str_response, is_str_correct) 리스트
+        # ---------- 인지 결과 테이블 (가로) ----------
+        # self.record_id_results = [헤더, (index, answer, choice_response, is_choice_correct, ...), ...]
         if len(self.record_id_results) > 1:
-            # 실제 출제된 문항 수(가로 칸 개수) - 헤더 행이 없다면 그대로 길이, 헤더가 있다면 -1로 조정
-            # 현재 구조상 record_id_results는 데이터 행들로 구성되어 있다고 가정
-            total_q = len(self.record_id_results)
+            rows = self.record_id_results[1:9]   # ★ 헤더 제외
+            total_q = len(rows)
 
-            # 가로 테이블을 B열부터 채우자(=엑셀 B 컬럼). O/X는 34행에 위치(0-index row 33).
-            col_start = 1  # B
-            row_idx_num = 30  # "문항" 행 (0-index, 엑셀 31행). 원래 코드 유지
-            row_idx_ans = 31  # "정답" 행
-            row_idx_sel = 32  # "선택" 행
-            row_idx_ox = 33  # "O/X" 행
-            ox_row_excel = row_idx_ox + 1  # 엑셀 표기(1-based): 34
+            col_start = 1  # B열부터
+            row_idx_num = 30  # "문항" 행 (0-index)
+            row_idx_ans = 31  # "정답"
+            row_idx_sel = 32  # "선택"
+            row_idx_ox  = 33  # "O/X"
+            ox_row_excel = row_idx_ox + 1       # 엑셀 표시용
 
             m_col = col_start
-            for (
-                index,
-                answer,
-                choice_response,
-                is_choice_correct,
-                str_response,
-                is_str_correct,
-            ) in self.record_id_results:
-                # 가로로 한 칸씩 채움
+            for (index, answer, choice_response, is_choice_correct, _str_response, _is_str_correct) in rows:
                 worksheet_main.write(row_idx_num, m_col, index, format_table)
                 worksheet_main.write(row_idx_ans, m_col, answer, format_table)
                 worksheet_main.write(row_idx_sel, m_col, choice_response, format_table)
-                worksheet_main.write(
-                    row_idx_ox,
-                    m_col,
-                    dsUtils.isCorrectToOX(is_choice_correct),
-                    format_table,
-                )
+                worksheet_main.write(row_idx_ox,  m_col, dsUtils.isCorrectToOX(is_choice_correct), format_table)
                 m_col += 1
 
-            # ----- 점수 집계(범위를 B~끝열의 O/X 행으로 제한) -----
-            left = xl_col_to_name(col_start)  # 'B'
-            right = xl_col_to_name(col_start + total_q - 1)  # 끝 열
-            # 정답/오답 수
-            worksheet_main.write(
-                "M35", f'=COUNTIF({left}{ox_row_excel}:{right}{ox_row_excel},"O")'
-            )
-            worksheet_main.write(
-                "M36", f'=COUNTIF({left}{ox_row_excel}:{right}{ox_row_excel},"X")'
-            )
+            # 집계 범위: B~끝열의 O/X 행
+            left  = xl_col_to_name(col_start)                 # 'B'
+            right = xl_col_to_name(col_start + total_q - 1)   # 끝열
+            worksheet_main.write("M35", f'=COUNTIF({left}{ox_row_excel}:{right}{ox_row_excel},"O")')
+            worksheet_main.write("M36", f'=COUNTIF({left}{ox_row_excel}:{right}{ox_row_excel},"X")')
 
-            # 점수 숫자(L30) = 정답 수(M35), 분모(M30) = /total_q  (고정 "/12" 제거)
-            worksheet_main.write("L30", "=M35", format_score_base)
-            worksheet_main.write("M30", f"/{total_q}", format_score_base)
+            worksheet_main.write("L30", "=M35", format_score_base)   # 득점
+            worksheet_main.write("M30", f"/{total_q}", format_score_base)  # 분모=문항수
 
             # 파이 차트
             chart_id = workbook.add_chart({"type": "pie"})
-            chart_id.add_series(
-                {
-                    "name": dsText.resultText["result_test_identification_title"],
-                    "categories": "=DigitalOlfactoryTestReport!$L$35:$L$36",
-                    "values": "=DigitalOlfactoryTestReport!$M$35:$M$36",
-                    "data_labels": {"value": True, "percentage": True},
-                }
-            )
-            chart_id.set_title(
-                {"name": dsText.resultText["result_test_identification_title"]}
-            )
+            chart_id.add_series({
+                "name": dsText.resultText["result_test_identification_title"],
+                "categories": f"={sheet_name}!$L$35:$L$36",
+                "values":     f"={sheet_name}!$M$35:$M$36",
+                "data_labels": {"value": True, "percentage": True},
+            })
+            chart_id.set_title({"name": dsText.resultText["result_test_identification_title"]})
             chart_id.set_style(10)
             worksheet_main.insert_chart("B13", chart_id, {"x_offset": 0, "y_offset": 0})
 
-            # 총점 영역(J4:K5)에 정답 수 표시 (그래프와 동일) - 유지
+            # 총점(J4:K5) = 정답 수
             worksheet_main.merge_range("J4:K5", "=M35", format_small_table_title)
 
-        # 닫기
         workbook.close()
 
 
-
-
-    def saveDataIdentificationExcel(self, save_file, password):
-        # 임시 파일 만들기
+    def saveDataIdentificationExcel(self, save_file, password, workbook, start_row=0, start_col=0):
+        # 임시 파일
         if not os.path.isdir(dsText.resultText["results_data_raw_path"]):
             os.mkdir(dsText.resultText["results_data_raw_path"])
-        temp_file = (
-            "%s\\" % os.getcwd()
-            + dsText.resultText["results_data_raw_path"]
-            + "temp.xlsx"
-        )
-        # 엑셀 채우기
-        workbook = xlsxwriter.Workbook(temp_file)
-        worksheet = workbook.add_worksheet()
-        row = 0
-        for (
-            index,
-            answer,
-            choice_response,
-            is_choice_correct,
-            str_response,
-            is_str_correct,
-        ) in self.record_id_results:
-            worksheet.write(row, 0, index)
-            worksheet.write(row, 1, answer)
-            worksheet.write(row, 2, choice_response)
-            worksheet.write(row, 3, is_choice_correct)
-            # worksheet.write(row, 4, str_response) # 주관식 불필요
-            # worksheet.write(row, 5, is_str_correct) # 주관식 불필요
-            row += 1
-        # 점수 정보 넣기
-        worksheet.write("F1", dsText.resultText["result_test_identification_title"])
-        worksheet.write("F2", dsText.resultText["result_test_identification_correct"])
-        worksheet.write("G2", "=COUNTIF(D:D, 1)")
-        worksheet.write("F3", dsText.resultText["result_test_identification_incorrect"])
-        # 수정
-        total_q = len(dsTestID.id_test_data)  # 현재 세션의 실제 문항수(8)
-        worksheet.write("G3", f"={total_q}-G2")
-        # 차트 만들기
-        chart = workbook.add_chart({"type": "pie"})
-        chart.add_series(
-            {
-                "name": dsText.resultText["result_test_identification_title"],
-                "categories": "=Sheet1!$F$2:$F$3",
-                "values": "=Sheet1!$G$2:$G$3",
-                "data_labels": {"value": True, "percentage": True},
-                # ⬇⬇⬇ 색상/슬라이스 개별 스타일
-                "points": [
-                    {"fill": {"color": "#4F81BD"}},  # 정답 슬라이스
-                    {"fill": {"color": "#AFA5A5"}},  # 오답 슬라이스
-                ],
-            }
-        )
-        chart.set_title({"name": dsText.resultText["result_test_identification_title"]})
-        # chart.set_rotation(90)
-        chart.set_rotation(90)           # 시작 각도(선택)
-        chart.set_legend({"position": "right"})
+        temp_file = os.path.join(os.getcwd(), dsText.resultText["results_data_raw_path"], "temp.xlsx")
 
-        # chart.set_style(10)
+        workbook = xlsxwriter.Workbook(temp_file)
+        sheet_name = "IdentificationReport"
+        worksheet = workbook.add_worksheet(sheet_name)
+
+        # 헤더
+        worksheet.write(start_row, start_col+0, "정답")
+        worksheet.write(start_row, start_col+1, "선택")
+        worksheet.write(start_row, start_col+2, "정답여부")
+
+        # ★ 헤더 제외
+        rows = self.record_id_results[1:] if getattr(self, "record_id_results", None) else []
+        for i, (_idx, ans, sel, ok, _s, _ss) in enumerate(rows, start=1):
+            worksheet.write(start_row+i, start_col+0, ans)
+            worksheet.write(start_row+i, start_col+1, sel)
+            worksheet.write(start_row+i, start_col+2, ok)
+
+        total_q = len(rows)
+
+        # 요약
+        summary_col = start_col + 5
+        worksheet.write(start_row,   summary_col,   "인지검사 결과")
+        # COUNTIF: C열의 데이터 범위(정답여부가 1인 개수)
+        worksheet.write(start_row+1, summary_col,   "정답 수")
+        worksheet.write(start_row+1, summary_col+1, f"=COUNTIF({chr(67)}{start_row+2}:{chr(67)}{start_row+1+total_q},1)")
+        worksheet.write(start_row+2, summary_col,   "오답 수")
+        worksheet.write(start_row+2, summary_col+1, f"={total_q}-{chr(71)}{start_row+2}")
+
+        # 차트 (요약 셀 참조는 현재 시트 기준)
+        chart = workbook.add_chart({"type": "pie"})
+        chart.add_series({
+            "name": dsText.resultText["result_test_identification_title"],
+            "categories": f"={sheet_name}!$F${start_row+2}:$F${start_row+3}",
+            "values":     f"={sheet_name}!$G${start_row+2}:$G${start_row+3}",
+            "data_labels": {"value": True, "percentage": True},
+            "points": [
+                {"fill": {"color": "#4F81BD"}},  # 정답
+                {"fill": {"color": "#AFA5A5"}},  # 오답
+            ],
+        })
+        chart.set_title({"name": dsText.resultText["result_test_identification_title"]})
+        chart.set_rotation(90)
+        chart.set_legend({"position": "right"})
         worksheet.insert_chart("F4", chart, {"x_offset": 5, "y_offset": 5})
+
         workbook.close()
-        # 암호화
         self.setExcelFilePassword(temp_file, save_file, password)
+
 
         
     def setExcelFilePassword(self, input_file, output_file, password):
@@ -6173,63 +6094,54 @@ class UiDlg(QWidget):
             chart_dc.set_style(10)
             worksheet_dc.insert_chart("I4", chart_dc, {"x_offset": 5, "y_offset": 5})
 
-        # 인지 결과 Sheet
+        # --- 인지 결과 Sheet ---
         if len(dsTestID.id_results) > 1:
             worksheet_id = workbook.add_worksheet("Identification")
             row = 0
-            m_col = 0  # 메인 시트
-            for (
-                index,
-                answer,
-                choice_response,
-                is_choice_correct,
-                str_response,
-                is_str_correct,
-            ) in dsTestID.id_results:
+            m_col = 0
+
+            # ★ 헤더 제외
+            id_rows = dsTestID.id_results[1:]
+            total_q = len(id_rows)
+
+            for (index, answer, choice_response, is_choice_correct, str_response, is_str_correct) in id_rows:
                 worksheet_id.write(row, 0, index)
                 worksheet_id.write(row, 1, answer)
                 worksheet_id.write(row, 2, choice_response)
                 worksheet_id.write(row, 3, is_choice_correct)
                 row += 1
-                # 메인 시트
+                # 메인 시트 (가로)
                 worksheet_main.write(30, m_col, index, format_table)
                 worksheet_main.write(31, m_col, answer, format_table)
                 worksheet_main.write(32, m_col, choice_response, format_table)
-                worksheet_main.write(
-                    33, m_col, dsUtils.isCorrectToOX(is_choice_correct), format_table
-                )
+                worksheet_main.write(33, m_col, dsUtils.isCorrectToOX(is_choice_correct), format_table)
                 m_col += 1
-            # 점수 정보 넣기
-            worksheet_id.write(
-                "F1", dsText.resultText["result_test_identification_title"]
-            )
-            worksheet_id.write(
-                "F2", dsText.resultText["result_test_identification_correct"]
-            )
-            worksheet_id.write("G2", "=COUNTIF(D:D, 1)")
-            worksheet_id.write(
-                "F3", dsText.resultText["result_test_identification_incorrect"]
-            )
-            worksheet_id.write("G3", "= {total_q} - G2")
-            # 차트 만들기
+
+            # 점수 정보 (동적)
+            worksheet_id.write("F1", dsText.resultText["result_test_identification_title"])
+            worksheet_id.write("F2", dsText.resultText["result_test_identification_correct"])
+            worksheet_id.write("G2", "=COUNTIF(D:D,1)")
+            worksheet_id.write("F3", dsText.resultText["result_test_identification_incorrect"])
+            worksheet_id.write("G3", f"={total_q}-G2")  # ★ 오탈자/서식 수정
+
+            # 메인 시트 득점/분모도 동적으로
+            worksheet_main.write("L30", "=G2")              # 정답 수
+            worksheet_main.write("M30", f"/{total_q}")      # 분모=실제 문항수
+
+            # 차트
             chart_id = workbook.add_chart({"type": "pie"})
-            chart_id.add_series(
-                {
-                    "name": dsText.resultText["result_test_identification_title"],
-                    "categories": "=Identification!$F$2:$F$3",
-                    "values": "=Identification!$G$2:$G$3",
-                    "data_labels": {"value": True, "percentage": True},
-                    "points": [
-                        {"fill": {"color": "#4F81BD"}},  # 정답
-                        {"fill": {"color": "#817F7F"}}   # 오답
-                    ],
-                }
-            )
-            chart_id.set_title(
-                {"name": dsText.resultText["result_test_identification_title"]}
-            )
+            chart_id.add_series({
+                "name": dsText.resultText["result_test_identification_title"],
+                "categories": "=Identification!$F$2:$F$3",
+                "values": "=Identification!$G$2:$G$3",
+                "data_labels": {"value": True, "percentage": True},
+                "points": [
+                    {"fill": {"color": "#4F81BD"}},  # 정답
+                    {"fill": {"color": "#817F7F"}},  # 오답
+                ],
+            })
+            chart_id.set_title({"name": dsText.resultText["result_test_identification_title"]})
             chart_id.set_rotation(90)
-            # chart_id.set_style(10)
             worksheet_id.insert_chart("F4", chart_id, {"x_offset": 5, "y_offset": 5})
 
         # 닫기
