@@ -210,6 +210,15 @@ class UiDlg(QWidget):
     # 로그인 관리
     def uiDlgLogin(self, uiLoader):
         self.ui_dlg_login = uiLoader.load("./ui/ui_dlg_login.ui")
+
+        # ⬇⬇⬇ [추가] 흰 테두리 제거: 다이얼로그를 투명화
+        self.ui_dlg_login.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.ui_dlg_login.setWindowFlags(self.ui_dlg_login.windowFlags() | Qt.FramelessWindowHint)
+        self.ui_dlg_login.setAutoFillBackground(False)
+        self.ui_dlg_login.setStyleSheet("QDialog{background:transparent;} QLabel, QPushButton{background:transparent;}")
+        # ⬆⬆⬆
+
+
         self.ui_dlg_login.le_pw.setEchoMode(QLineEdit.Password)
         self.ui_dlg_login.le_pw.returnPressed.connect(self.uiDlgLoginStart)
         self.ui_dlg_login.pb_start.clicked.connect(self.uiDlgLoginStart)
@@ -220,6 +229,15 @@ class UiDlg(QWidget):
         self.setWindowBySetting(self.ui_dlg_login)
 
         self.ui_dlg_login_resetpw = uiLoader.load("./ui/ui_dlg_login_resetpw.ui")
+
+         # ⬇⬇⬇ [추가] 동일 옵션 적용
+        self.ui_dlg_login_resetpw.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.ui_dlg_login_resetpw.setWindowFlags(self.ui_dlg_login_resetpw.windowFlags() | Qt.FramelessWindowHint)
+        self.ui_dlg_login_resetpw.setAutoFillBackground(False)
+        self.ui_dlg_login_resetpw.setStyleSheet("QDialog{background:transparent;} QLabel, QPushButton{background:transparent;}")
+        # ⬆⬆⬆
+
+
         self.ui_dlg_login_resetpw.le_pw_old.setEchoMode(QLineEdit.Password)
         self.ui_dlg_login_resetpw.le_pw_new.setEchoMode(QLineEdit.Password)
         self.ui_dlg_login_resetpw.le_pw_new_check.setEchoMode(QLineEdit.Password)
@@ -256,6 +274,15 @@ class UiDlg(QWidget):
         self.ui_subject_dlg.le_search.installEventFilter(self.filter_ReturnTabSpace)
 
         self.ui_dlg_subject_add = uiLoader.load("./ui/ui_dlg_subject_add.ui")
+
+        # ⬇⬇⬇ [추가] 동일 옵션 적용
+        self.ui_dlg_subject_add.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.ui_dlg_subject_add.setWindowFlags(self.ui_dlg_login_resetpw.windowFlags() | Qt.FramelessWindowHint)
+        self.ui_dlg_subject_add.setAutoFillBackground(False)
+        self.ui_dlg_subject_add.setStyleSheet("QDialog{background:transparent;} QLabel, QPushButton{background:transparent;}")
+        # ⬆⬆⬆
+
+
         self.ui_dlg_subject_add.de_birthdate.setDisplayFormat("yyyy-MM-dd")
         self.ui_dlg_subject_add.pb_add.clicked.connect(self.uiDlgSubjectAddPbAdd)
         self.ui_dlg_subject_add.pb_close.clicked.connect(self.uiDlgSubjectAddPbClose)
@@ -264,6 +291,15 @@ class UiDlg(QWidget):
         self.setWindowBySetting(self.ui_dlg_subject_add)
 
         self.ui_dlg_subject_delete = uiLoader.load("./ui/ui_dlg_subject_delete.ui")
+
+        # ⬇⬇⬇ [추가] 동일 옵션 적용
+        self.ui_dlg_subject_delete.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.ui_dlg_subject_delete.setWindowFlags(self.ui_dlg_login_resetpw.windowFlags() | Qt.FramelessWindowHint)
+        self.ui_dlg_subject_delete.setAutoFillBackground(False)
+        self.ui_dlg_subject_delete.setStyleSheet("QDialog{background:transparent;} QLabel, QPushButton{background:transparent;}")
+        # ⬆⬆⬆
+
+
         self.ui_dlg_subject_delete.pb_delete.clicked.connect(
             self.uiDlgSubjectDeletePbDelete
         )
@@ -274,6 +310,15 @@ class UiDlg(QWidget):
 
         # 피검자 정보 확인하고 다음으로 진행할지 확인하는 Dialog
         self.ui_dlg_subject_next = uiLoader.load("./ui/ui_dlg_subject_next.ui")
+
+        # ⬇⬇⬇ [추가] 동일 옵션 적용
+        self.ui_dlg_subject_next.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.ui_dlg_subject_next.setWindowFlags(self.ui_dlg_login_resetpw.windowFlags() | Qt.FramelessWindowHint)
+        self.ui_dlg_subject_next.setAutoFillBackground(False)
+        self.ui_dlg_subject_next.setStyleSheet("QDialog{background:transparent;} QLabel, QPushButton{background:transparent;}")
+        # ⬆⬆⬆
+
+
         self.ui_dlg_subject_next.pb_next.clicked.connect(self.uiDlgSubjectNextPbNext)
         self.ui_dlg_subject_next.pb_close.clicked.connect(self.uiDlgSubjectNextPbClose)
         self.setWindowBySetting(self.ui_dlg_subject_next)
@@ -922,11 +967,27 @@ class UiDlg(QWidget):
     def uiDlgMessages(self, uiLoader):
         # 알림 메시지 다이얼로그
         self.ui_msg_dlg = uiLoader.load("./ui/ui_dlg_msg.ui")
+
+         # ⬇⬇⬇ [추가] 동일 옵션 적용
+        self.ui_msg_dlg.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.ui_msg_dlg.setWindowFlags(self.ui_dlg_login_resetpw.windowFlags() | Qt.FramelessWindowHint)
+        self.ui_msg_dlg.setAutoFillBackground(False)
+        self.ui_msg_dlg.setStyleSheet("QDialog{background:transparent;} QLabel, QPushButton{background:transparent;}")
+        # ⬆⬆⬆
+
         self.ui_msg_dlg.pb_close.clicked.connect(self.uiDlgMsgHide)
         self.setWindowBySetting(self.ui_msg_dlg)
 
         # 메시지 다이얼로그들
         self.ui_test_results_save_dlg = uiLoader.load("./ui/ui_dlg_msg.ui")
+
+        # ⬇⬇⬇ [추가] 동일 옵션 적용
+        self.ui_test_results_save_dlg.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.ui_test_results_save_dlg.setWindowFlags(self.ui_dlg_login_resetpw.windowFlags() | Qt.FramelessWindowHint)
+        self.ui_test_results_save_dlg.setAutoFillBackground(False)
+        self.ui_test_results_save_dlg.setStyleSheet("QDialog{background:transparent;} QLabel, QPushButton{background:transparent;}")
+        # ⬆⬆⬆
+
         self.ui_test_results_save_dlg.pb_close.clicked.connect(
             self.uiTestResultsSaveDlgClose
         )
