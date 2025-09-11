@@ -403,8 +403,8 @@
    <widget class="QWidget" name="widget_3" native="true">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>310</y>
+      <x>670</x>
+      <y>250</y>
       <width>201</width>
       <height>81</height>
      </rect>
@@ -463,8 +463,8 @@
    <widget class="QPushButton" name="pushButton_confirm">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>933</y>
+      <x>740</x>
+      <y>930</y>
       <width>320</width>
       <height>100</height>
      </rect>
@@ -493,21 +493,21 @@
    <widget class="scentPieChartWidget" name="widgetChart" native="true">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>130</x>
       <y>190</y>
       <width>441</width>
       <height>291</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QWidget { background-color: white }</string>
+     <string notr="true"/>
     </property>
    </widget>
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>220</y>
+      <x>470</x>
+      <y>190</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -590,10 +590,10 @@
    <widget class="QTableWidget" name="resultTable">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>490</y>
-      <width>851</width>
-      <height>371</height>
+      <x>990</x>
+      <y>270</y>
+      <width>751</width>
+      <height>601</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -726,8 +726,8 @@
    <widget class="QPushButton" name="pb_id_grade_4">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>310</y>
+      <x>120</x>
+      <y>560</y>
       <width>748</width>
       <height>65</height>
      </rect>
@@ -745,8 +745,8 @@
    <widget class="QPushButton" name="pb_id_grade_3">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>446</y>
+      <x>120</x>
+      <y>640</y>
       <width>748</width>
       <height>65</height>
      </rect>
@@ -764,8 +764,8 @@
    <widget class="QPushButton" name="pb_id_grade_2">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>582</y>
+      <x>120</x>
+      <y>720</y>
       <width>748</width>
       <height>65</height>
      </rect>
@@ -783,8 +783,8 @@
    <widget class="QPushButton" name="pb_id_grade_1">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>718</y>
+      <x>120</x>
+      <y>800</y>
       <width>748</width>
       <height>65</height>
      </rect>
@@ -802,8 +802,8 @@
    <widget class="QLabel" name="label_guide">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>190</y>
+      <x>980</x>
+      <y>130</y>
       <width>811</width>
       <height>111</height>
      </rect>
@@ -840,8 +840,8 @@
    <widget class="QPushButton" name="pb_id_grade_cur_4">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>310</y>
+      <x>120</x>
+      <y>560</y>
       <width>748</width>
       <height>65</height>
      </rect>
@@ -859,8 +859,8 @@
    <widget class="QPushButton" name="pb_id_grade_cur_3">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>440</y>
+      <x>120</x>
+      <y>640</y>
       <width>748</width>
       <height>65</height>
      </rect>
@@ -878,8 +878,8 @@
    <widget class="QPushButton" name="pb_id_grade_cur_2">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>580</y>
+      <x>120</x>
+      <y>720</y>
       <width>748</width>
       <height>65</height>
      </rect>
@@ -897,8 +897,8 @@
    <widget class="QPushButton" name="pb_id_grade_cur_1">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>720</y>
+      <x>120</x>
+      <y>800</y>
       <width>748</width>
       <height>65</height>
      </rect>
@@ -916,8 +916,8 @@
    <widget class="QLabel" name="label_guide_2">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>190</y>
+      <x>530</x>
+      <y>160</y>
       <width>401</width>
       <height>111</height>
      </rect>
@@ -1097,8 +1097,8 @@
    <widget class="QPushButton" name="pushButton_save">
     <property name="geometry">
      <rect>
-      <x>25</x>
-      <y>933</y>
+      <x>80</x>
+      <y>930</y>
       <width>320</width>
       <height>100</height>
      </rect>
@@ -1127,7 +1127,7 @@
    <widget class="QPushButton" name="pushButton_print">
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>410</x>
       <y>930</y>
       <width>320</width>
       <height>100</height>
@@ -1141,12 +1141,12 @@
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-                        background-image : url(./ui/images/common_locale/btn_save_file.png);
+                        background-image : url(./ui/images/common_locale/btn_print.png);
                         border : 0px;
                         }
 
                         QPushButton::hover{
-                        background-image : url(./ui/images/common_locale/btn_save_file_over.png);
+                        background-image : url(./ui/images/common_locale/btn_print_over.png);
                         border : 0px;
                         }</string>
     </property>
