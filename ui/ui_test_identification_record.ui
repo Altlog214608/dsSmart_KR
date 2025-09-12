@@ -409,6 +409,9 @@
       <height>81</height>
      </rect>
     </property>
+    <property name="visible">
+     <bool>false</bool>
+    </property>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <widget class="QLabel" name="label_correctRate">
@@ -463,8 +466,8 @@
    <widget class="QPushButton" name="pushButton_confirm">
     <property name="geometry">
      <rect>
-      <x>740</x>
-      <y>933</y>
+      <x>1140</x>
+      <y>930</y>
       <width>320</width>
       <height>100</height>
      </rect>
@@ -493,8 +496,8 @@
    <widget class="scentPieChartWidget" name="widgetChart" native="true">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>190</y>
+      <x>270</x>
+      <y>180</y>
       <width>441</width>
       <height>291</height>
      </rect>
@@ -506,7 +509,7 @@
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>600</x>
       <y>190</y>
       <width>91</width>
       <height>41</height>
@@ -808,6 +811,9 @@
       <height>111</height>
      </rect>
     </property>
+    <property name="visible">
+     <bool>false</bool>
+    </property>
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
@@ -940,6 +946,9 @@
       <width>401</width>
       <height>111</height>
      </rect>
+    </property>
+    <property name="visible">
+     <bool>false</bool>
     </property>
     <property name="font">
      <font>
@@ -1116,7 +1125,7 @@
    <widget class="QPushButton" name="pushButton_save">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>440</x>
       <y>930</y>
       <width>320</width>
       <height>100</height>
@@ -1146,7 +1155,7 @@
    <widget class="QPushButton" name="pushButton_print">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>790</x>
       <y>930</y>
       <width>320</width>
       <height>100</height>
@@ -1166,6 +1175,25 @@
 
                         QPushButton::hover{
                         background-image : url(./ui/images/common_locale/btn_print_over.png);
+                        border : 0px;
+                        }</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_id_grade_cur_6">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>480</y>
+      <width>748</width>
+      <height>65</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+                        background-image : url(./ui/images/test/i/pb_id_grade_5.png);
                         border : 0px;
                         }</string>
     </property>
@@ -1194,6 +1222,7 @@
    <zorder>widget_2</zorder>
    <zorder>pushButton_save</zorder>
    <zorder>pushButton_print</zorder>
+   <zorder>pb_id_grade_cur_6</zorder>
   </widget>
  </widget>
  <customwidgets>
