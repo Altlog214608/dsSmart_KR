@@ -88,7 +88,7 @@ dsBtnImg = {
     '나무': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_tree.png)}',
     '땅콩': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_peanut.png)}',
     '재/연기': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_ash.png)}',
-    '아기분 냄새': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_babypowder.png)}',
+    '아기 분': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_babypowder.png)}',
     '스피아민트': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_mint.png)}',
     '옥수수': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_corn.png)}',
     '인삼': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_redginseng.png)}',

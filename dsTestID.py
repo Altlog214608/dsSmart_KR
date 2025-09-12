@@ -34,7 +34,7 @@ id_test_data = [
     {'choice1': '쌀','choice2': '사과','choice3': '소나무','choice4': '고구마','answer': '소나무','scent_no': 5,'outlet_no': 1,
      'choice5':'겨자','choice6':'딸기','choice7':'계피','choice8':'홍삼','choice9':'멜론','choice10':'계란'},
 
-    {'choice1': '생선','choice2': '아기분 냄새','choice3': '카레','choice4': '키위','answer': '아기분 냄새','scent_no': 6,'outlet_no': 1,
+    {'choice1': '생선','choice2': '아기 분','choice3': '카레','choice4': '키위','answer': '아기 분','scent_no': 6,'outlet_no': 1,
      'choice5':'버섯','choice6':'레몬','choice7':'양파','choice8':'사과','choice9':'국수','choice10':'장미'},
 
     {'choice1': '녹차','choice2': '마늘','choice3': '간장','choice4': '쇠','answer': '녹차','scent_no': 7,'outlet_no': 1,
@@ -97,10 +97,10 @@ id_test_data2 = [{'choice1': '땅콩',
                  'outlet_no': 1},
 
                 {'choice1': '생선',
-                 'choice2': '아기분 냄새',
+                 'choice2': '아기 분',
                  'choice3': '카레',
                  'choice4': '키위',
-                 'answer': '아기분 냄새',
+                 'answer': '아기 분',
                  'scent_no': 6,
                  'outlet_no': 1},
 
