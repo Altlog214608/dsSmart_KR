@@ -5693,12 +5693,12 @@ class UiDlg(QWidget):
         worksheet_main.write("A10", dsText.reportText["report_date"], format_small_title)
         worksheet_main.write("C10", self.record_test_date_time)
 
-        worksheet_main.merge_range("G3:I3", dsText.reportText["report_ammonia"], format_small_table_title)
-        worksheet_main.merge_range("G4:I5", "", format_small_table_title)
-        worksheet_main.merge_range("J3:K3", dsText.reportText["report_total_score"], format_small_table_title)
-        worksheet_main.merge_range("L3:M3", dsText.reportText["report_nomosmia"], format_small_table_title)
-        worksheet_main.merge_range("L4:M4", dsText.reportText["report_hyposmia"], format_small_table_title)
-        worksheet_main.merge_range("L5:M5", dsText.reportText["report_anosmia"], format_small_table_title)
+        # worksheet_main.merge_range("G3:I3", dsText.reportText["report_ammonia"], format_small_table_title)
+        # worksheet_main.merge_range("G4:I5", "", format_small_table_title)
+        worksheet_main.merge_range("L3:M3", dsText.reportText["report_total_score"], format_small_table_title)
+        # worksheet_main.merge_range("L3:M3", dsText.reportText["report_nomosmia"], format_small_table_title)
+        # worksheet_main.merge_range("L4:M4", dsText.reportText["report_hyposmia"], format_small_table_title)
+        # worksheet_main.merge_range("L5:M5", dsText.reportText["report_anosmia"], format_small_table_title)
 
         # ---------- 점수 영역 ----------
         worksheet_main.write("A30", dsText.resultText["result_test_identification_title"], format_small_title)
@@ -5763,7 +5763,7 @@ class UiDlg(QWidget):
             worksheet_main.insert_chart("B13", chart_id, {"x_offset": 0, "y_offset": 0})
 
             # 총점(J4:K5) = 정답 수
-            worksheet_main.merge_range("J4:K5", "=M35", format_small_table_title)
+            worksheet_main.merge_range("L4:M5", "=M35", format_small_table_title)
 
         workbook.close()
 
@@ -5918,25 +5918,25 @@ class UiDlg(QWidget):
         # worksheet_main.write('C6', dsText.reportText['report_right_nostril'], format_small_title)
         # worksheet_main.write('E6', dsText.reportText['report_left_nostril'], format_small_title)
 
+        # worksheet_main.merge_range(
+        #     "G3:I3", dsText.reportText["report_ammonia"], format_small_table_title
+        # )
+        # worksheet_main.merge_range("G4:I5", "", format_small_table_title)  # 빈칸
         worksheet_main.merge_range(
-            "G3:I3", dsText.reportText["report_ammonia"], format_small_table_title
-        )
-        worksheet_main.merge_range("G4:I5", "", format_small_table_title)  # 빈칸
-        worksheet_main.merge_range(
-            "J3:K3", dsText.reportText["report_total_score"], format_small_table_title
-        )
-        worksheet_main.merge_range(
-            "J4:K5", "%d" % (dsTest.TDI_score), format_small_table_title
+            "L3:M3", dsText.reportText["report_total_score"], format_small_table_title
         )
         worksheet_main.merge_range(
-            "L3:M3", dsText.reportText["report_nomosmia"], format_small_table_title
+            "L4:M5", "%d" % (dsTest.TDI_score), format_small_table_title
         )
-        worksheet_main.merge_range(
-            "L4:M4", dsText.reportText["report_hyposmia"], format_small_table_title
-        )
-        worksheet_main.merge_range(
-            "L5:M5", dsText.reportText["report_anosmia"], format_small_table_title
-        )
+        # worksheet_main.merge_range(
+        #     "L3:M3", dsText.reportText["report_nomosmia"], format_small_table_title
+        # )
+        # worksheet_main.merge_range(
+        #     "L4:M4", dsText.reportText["report_hyposmia"], format_small_table_title
+        # )
+        # worksheet_main.merge_range(
+        #     "L5:M5", dsText.reportText["report_anosmia"], format_small_table_title
+        # )
 
         # 메인 시트 점수 정보
         worksheet_main.write(
@@ -6320,25 +6320,25 @@ class UiDlg(QWidget):
         # worksheet_main.write('C6', dsText.reportText['report_right_nostril'], format_small_title)
         # worksheet_main.write('E6', dsText.reportText['report_left_nostril'], format_small_title)
 
+        # worksheet_main.merge_range(
+        #     "G3:I3", dsText.reportText["report_ammonia"], format_small_table_title
+        # )
+        # worksheet_main.merge_range("G4:I5", "", format_small_table_title)  # 빈칸
         worksheet_main.merge_range(
-            "G3:I3", dsText.reportText["report_ammonia"], format_small_table_title
-        )
-        worksheet_main.merge_range("G4:I5", "", format_small_table_title)  # 빈칸
-        worksheet_main.merge_range(
-            "J3:K3", dsText.reportText["report_total_score"], format_small_table_title
-        )
-        worksheet_main.merge_range(
-            "J4:K5", "%d" % (dsTest.TDI_score), format_small_table_title
+            "L3:M3", dsText.reportText["report_total_score"], format_small_table_title
         )
         worksheet_main.merge_range(
-            "L3:M3", dsText.reportText["report_nomosmia"], format_small_table_title
+            "L4:M5", "%d" % (dsTest.TDI_score), format_small_table_title
         )
-        worksheet_main.merge_range(
-            "L4:M4", dsText.reportText["report_hyposmia"], format_small_table_title
-        )
-        worksheet_main.merge_range(
-            "L5:M5", dsText.reportText["report_anosmia"], format_small_table_title
-        )
+        # worksheet_main.merge_range(
+        #     "L3:M3", dsText.reportText["report_nomosmia"], format_small_table_title
+        # )
+        # worksheet_main.merge_range(
+        #     "L4:M4", dsText.reportText["report_hyposmia"], format_small_table_title
+        # )
+        # worksheet_main.merge_range(
+        #     "L5:M5", dsText.reportText["report_anosmia"], format_small_table_title
+        # )
 
         # 메인 시트 점수 정보
         worksheet_main.write(
