@@ -50,7 +50,7 @@
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
       <bold>false</bold>
      </font>
     </property>

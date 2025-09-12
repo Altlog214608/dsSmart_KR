@@ -123,13 +123,25 @@ class UiDlg(QWidget):
         # return super().eventFilter(obj, event)
 
     # 창 모양
+    # def setWindowBySetting(self, dialog):
+    #     if dsSetting.dsParam["window_bars_onoff"] != 1:
+    #         dialog.setWindowFlags(
+    #             Qt.WindowType.FramelessWindowHint
+    #         )  # 강제 설정해야 문제 상황 없을 것
+    #     if dsSetting.dsParam["front_onoff"] == 1:
+    #         dialog.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+
+    # ScentSmart.py
     def setWindowBySetting(self, dialog):
-        if dsSetting.dsParam["window_bars_onoff"] != 1:
-            dialog.setWindowFlags(
-                Qt.WindowType.FramelessWindowHint
-            )  # 강제 설정해야 문제 상황 없을 것
+        # 무조건 프레임리스
+        flags = Qt.FramelessWindowHint
+
+        # '항상 위' 옵션을 쓰고 싶다면, 함께 OR
         if dsSetting.dsParam["front_onoff"] == 1:
-            dialog.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+            flags |= Qt.WindowStaysOnTopHint
+
+        dialog.setWindowFlags(flags)
+
 
     # 창 위치 업데이트
     def uiDlgPrevCP(self, prev_dlg):
@@ -272,7 +284,8 @@ class UiDlg(QWidget):
         self.ui_subject_dlg.ui_subject_btn_quit.clicked.connect(self.uiSubjectBtnQuit)
         self.ui_subject_dlg.pb_next.clicked.connect(self.uiSubjectPbNext)
         self.ui_subject_dlg.le_search.installEventFilter(self.filter_ReturnTabSpace)
-
+        self.setWindowBySetting(self.ui_subject_dlg)
+    
         self.ui_dlg_subject_add = uiLoader.load("./ui/ui_dlg_subject_add.ui")
 
         # ⬇⬇⬇ [추가] 동일 옵션 적용
@@ -835,11 +848,11 @@ class UiDlg(QWidget):
         # 재활 콘텐츠 Scene 선택
         self.ui_train_id_select = uiLoader.load("./ui/ui_train_id_3_select.ui")
         self.ui_train_id_select.pb_scene_01.clicked.connect(self.uiTrainIDSelectScene1)
-        self.ui_train_id_select.pb_scene_02.clicked.connect(self.uiTrainIDSelectScene2)
-        self.ui_train_id_select.pb_scene_03.clicked.connect(self.uiTrainIDSelectScene3)
-        self.ui_train_id_select.pb_scene_04.clicked.connect(self.uiTrainIDSelectScene4)
-        self.ui_train_id_select.pb_scene_05.clicked.connect(self.uiTrainIDSelectScene5)
-        self.ui_train_id_select.pb_scene_06.clicked.connect(self.uiTrainIDSelectScene6)
+        self.ui_train_id_select.pb_scene_02.clicked.connect(self.uiTrainIDSelectScene3)
+        self.ui_train_id_select.pb_scene_03.clicked.connect(self.uiTrainIDSelectScene8)
+        self.ui_train_id_select.pb_scene_04.clicked.connect(self.uiTrainIDSelectScene6)
+        self.ui_train_id_select.pb_scene_05.clicked.connect(self.uiTrainIDSelectScene7)
+        self.ui_train_id_select.pb_scene_06.clicked.connect(self.uiTrainIDSelectScene8)
         self.ui_train_id_select.pb_scene_07.clicked.connect(self.uiTrainIDSelectScene7)
         self.ui_train_id_select.pb_scene_08.clicked.connect(self.uiTrainIDSelectScene8)
         self.ui_train_id_select.pb_quit.clicked.connect(self.uiTrainIDSelectQuit)
@@ -850,7 +863,7 @@ class UiDlg(QWidget):
         self.ui_train_id_select.pb_scene_02.setVisible(True)
 
         # Scene 3~8 숨김
-        self.ui_train_id_select.pb_scene_03.setVisible(False)
+        self.ui_train_id_select.pb_scene_03.setVisible(True)
         self.ui_train_id_select.pb_scene_04.setVisible(False)
         self.ui_train_id_select.pb_scene_05.setVisible(False)
         self.ui_train_id_select.pb_scene_06.setVisible(False)
@@ -1639,21 +1652,45 @@ class UiDlg(QWidget):
     """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" """""" ""
 
     # UI Dialog Login
+    # def uiDlgLoginStart(self):
+    #     pw = self.ui_dlg_login.le_pw.text()
+    #     print(pw)
+    #     if pw == "":
+    #         return
+    #     elif self.checkPW(pw):
+    #         print("Login PW TRUE")
+    #         self.clearPWEdit()
+    #         self.clearPWText()
+    #         # 다음 화면으로 전환
+    #         self.initSubjectInfo()  # 초기 정보 빈칸으로
+    #         self.updateUiSujbect()
+    #         self.uiDlgChangeWithDlg(
+    #             self.ui_main_dlg, self.ui_dlg_login, self.ui_subject_dlg
+    #         )
+    #     else:
+    #         print("Logint PW FALSE")
+    #         self.countErrorPW()
+    #         self.clearPWEdit()
+    # ScentSmart.py
+
     def uiDlgLoginStart(self):
         pw = self.ui_dlg_login.le_pw.text()
         print(pw)
-        if pw == "":
-            return
-        elif self.checkPW(pw):
+
+        # ① pw가 빈 문자열이고, 디폴트 비밀번호가 빈 값("")인 경우에는 통과
+        if pw == "" and dsText.pwText["pwDefault"] == "":
+            ok = True
+        else:
+            # ② 그 외에는 기존 로직대로 검증
+            ok = self.checkPW(pw)
+
+        if ok:
             print("Login PW TRUE")
             self.clearPWEdit()
             self.clearPWText()
-            # 다음 화면으로 전환
-            self.initSubjectInfo()  # 초기 정보 빈칸으로
+            self.initSubjectInfo()
             self.updateUiSujbect()
-            self.uiDlgChangeWithDlg(
-                self.ui_main_dlg, self.ui_dlg_login, self.ui_subject_dlg
-            )
+            self.uiDlgChangeWithDlg(self.ui_main_dlg, self.ui_dlg_login, self.ui_subject_dlg)
         else:
             print("Logint PW FALSE")
             self.countErrorPW()

@@ -24,7 +24,8 @@ def decryptMessage(encryptedMessage):
     return decrypted
 
 if __name__ == "__main__":
-    msg = "!digitalscent1234"
+    # msg = "!digitalscent1234"
+    msg = ""
     enmsg = encryptMessage(msg)
     demsg = decryptMessage(pw_init)
     enmsgsame = encryptMessageVar(msg)

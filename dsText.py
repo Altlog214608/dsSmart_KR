@@ -106,7 +106,8 @@ reviewText = {
 }
 
 pwText = {
-    'pwDefault': "!digitalscent1234",
+    # 'pwDefault': "!digitalscent1234",
+    'pwDefault': "",
     'pwChange': "비밀번호가 변경되었습니다.",
     'pwRequirement': "비밀번호: 영문/숫자/특수문자 조합 8자~20자",
     'pwCheckError': "변경된 비밀번호가 일치하지 않습니다.",

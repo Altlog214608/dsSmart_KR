@@ -126,10 +126,10 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_scene_05">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>280</y>
-      <width>301</width>
-      <height>217</height>
+      <x>40</x>
+      <y>840</y>
+      <width>284</width>
+      <height>240</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -141,7 +141,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>맑은 고딕</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -162,8 +162,8 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_scene_01">
     <property name="geometry">
      <rect>
-      <x>600</x>
-      <y>532</y>
+      <x>400</x>
+      <y>570</y>
       <width>284</width>
       <height>240</height>
      </rect>
@@ -177,7 +177,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -198,8 +198,8 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_scene_02">
     <property name="geometry">
      <rect>
-      <x>1020</x>
-      <y>532</y>
+      <x>800</x>
+      <y>570</y>
       <width>284</width>
       <height>240</height>
      </rect>
@@ -213,7 +213,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -234,10 +234,10 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_scene_06">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>510</y>
-      <width>301</width>
-      <height>217</height>
+      <x>1490</x>
+      <y>740</y>
+      <width>284</width>
+      <height>240</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -249,7 +249,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>맑은 고딕</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -270,10 +270,10 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_scene_04">
     <property name="geometry">
      <rect>
-      <x>1540</x>
-      <y>500</y>
-      <width>301</width>
-      <height>217</height>
+      <x>40</x>
+      <y>560</y>
+      <width>284</width>
+      <height>240</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -285,7 +285,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -306,8 +306,8 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_scene_08">
     <property name="geometry">
      <rect>
-      <x>1550</x>
-      <y>770</y>
+      <x>1510</x>
+      <y>290</y>
       <width>301</width>
       <height>217</height>
      </rect>
@@ -321,7 +321,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>맑은 고딕</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -342,10 +342,10 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_scene_03">
     <property name="geometry">
      <rect>
-      <x>1560</x>
-      <y>270</y>
-      <width>301</width>
-      <height>217</height>
+      <x>1170</x>
+      <y>570</y>
+      <width>284</width>
+      <height>240</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -357,7 +357,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -378,8 +378,8 @@ QPushButton::hover{
    <widget class="QPushButton" name="pb_scene_07">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>730</y>
+      <x>30</x>
+      <y>300</y>
       <width>301</width>
       <height>217</height>
      </rect>
@@ -393,7 +393,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>맑은 고딕</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -423,14 +423,14 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
       <italic>false</italic>
       <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QLabel{
-	font : 36pt;
+	font : 66pt;
 	color : #205f76;
 }</string>
     </property>

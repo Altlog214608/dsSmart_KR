@@ -71,15 +71,15 @@
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
       <italic>false</italic>
       <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QLabel{
-	color : #205f76;
-	font : 36pt;
+	color : #ffffff;
+	font : 66pt;
 }</string>
     </property>
     <property name="text">
@@ -107,15 +107,15 @@
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>18</pointsize>
+      <pointsize>30</pointsize>
       <italic>false</italic>
       <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QLabel{
-	color : #205f76;
-	font : 18pt;
+	color : #ffffff;
+	font : 30pt;
 }</string>
     </property>
     <property name="text">

@@ -117,13 +117,14 @@ QPushButton::hover{
     border: none;                 /* 테두리 제거 (필요시 유지 가능) */
     border-radius: 12px;
     background-color: rgba(0,0,0,150); /* 반투명 검은색 (0~255 중 150 정도 투명도) */
+	qproperty-alignment: 'AlignCenter';
 }</string>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Scent diffusion is in progress.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignHCenter</set>
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
     <property name="margin">
      <number>0</number>
@@ -198,7 +199,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -228,7 +229,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -258,7 +259,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -288,7 +289,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -312,7 +313,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>34</pointsize>
+      <pointsize>44</pointsize>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -320,7 +321,7 @@ QPushButton::hover{
     <property name="styleSheet">
      <string notr="true">QLabel{
 	color : #205f76;
-	font : 34pt;
+	font : 44pt;
 	border: 3px solid #daeff5;
 	border-radius:12px;
 	background-color : #FFFFFF;
@@ -345,7 +346,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>34</pointsize>
+      <pointsize>44</pointsize>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -353,7 +354,7 @@ QPushButton::hover{
     <property name="styleSheet">
      <string notr="true">QLabel{
 	color : #205f76;
-	font : 34pt;
+	font : 44pt;
 	border: 3px solid #daeff5;
 	border-radius:12px;
 	background-color : #FFFFFF;
@@ -378,7 +379,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>34</pointsize>
+      <pointsize>44</pointsize>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -386,7 +387,7 @@ QPushButton::hover{
     <property name="styleSheet">
      <string notr="true">QLabel{
 	color : #205f76;
-	font : 34pt;
+	font : 44pt;
 	border: 3px solid #daeff5;
 	border-radius:12px;
 	background-color : #FFFFFF;
@@ -411,7 +412,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>34</pointsize>
+      <pointsize>44</pointsize>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -419,7 +420,7 @@ QPushButton::hover{
     <property name="styleSheet">
      <string notr="true">QLabel{
 	color : #205f76;
-	font : 34pt;
+	font : 44pt;
 	border: 3px solid #daeff5;
 	border-radius:12px;
 	background-color : #FFFFFF;
@@ -512,7 +513,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -572,7 +573,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -602,7 +603,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -632,7 +633,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">

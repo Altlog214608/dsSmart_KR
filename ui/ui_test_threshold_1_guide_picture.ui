@@ -110,7 +110,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -118,7 +118,7 @@ QPushButton::hover{
     <property name="styleSheet">
      <string notr="true">QLabel{
 	color : #205f76;
-	font : 36pt;
+	font : 66pt;
 }</string>
     </property>
     <property name="text">
@@ -220,7 +220,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
       <italic>false</italic>
       <bold>false</bold>
      </font>

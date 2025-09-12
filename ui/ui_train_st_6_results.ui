@@ -259,7 +259,7 @@ QPushButton::hover{
       &lt;/property&gt;
       &lt;property name=&quot;styleSheet&quot;&gt;
        &lt;string notr=&quot;true&quot;&gt;QLabel{
-	font : 36pt;
+	font : 66pt;
 	color : #205f76;
 }&lt;/string&gt;
       &lt;/property&gt;
@@ -280,7 +280,7 @@ QPushButton::hover{
       &lt;/property&gt;
       &lt;property name=&quot;styleSheet&quot;&gt;
        &lt;string notr=&quot;true&quot;&gt;QLabel{
-	font : 36pt;
+	font : 66pt;
 	color : #205f76;
 }&lt;/string&gt;
       &lt;/property&gt;

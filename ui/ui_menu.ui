@@ -195,7 +195,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -231,7 +231,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>맑은 고딕</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -267,7 +267,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -321,7 +321,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>Malgun Gothic</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -357,7 +357,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>맑은 고딕</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -393,7 +393,7 @@ QPushButton::hover{
     <property name="font">
      <font>
       <family>맑은 고딕</family>
-      <pointsize>36</pointsize>
+      <pointsize>66</pointsize>
      </font>
     </property>
     <property name="styleSheet">
