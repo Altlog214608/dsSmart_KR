@@ -61,12 +61,12 @@ class scentPieChartWidget(QWidget):
         # self.pie_chart_view.setRenderHint(QPainter.Antialiasing)
         # Slice
         self.slice_1 = self.pie_series.slices()[0]
-        self.slice_1.setBrush(Qt.GlobalColor.green)
+        self.slice_1.setBrush(QColor("#3b82f6"))
         # self.slice_1.setLabelVisible(True)
         # self.slice_1.setExploded()
         # self.slice_1.setExplodeDistanceFactor(0.02)
         self.slice_2 = self.pie_series.slices()[1]
-        self.slice_2.setBrush(Qt.GlobalColor.red)
+        self.slice_2.setBrush(QColor("#D7E9F6"))
         # self.slice_2.setLabelVisible(False)
         # self.slice_2.setExploded()
 

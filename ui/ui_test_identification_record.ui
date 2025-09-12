@@ -267,7 +267,7 @@
                         &lt;/property&gt;
                         &lt;property name=&quot;styleSheet&quot;&gt;
                         &lt;string notr=&quot;true&quot;&gt;QLabel{
-                        font : 66pt;
+                        font : 60pt;
                         color : #205f76;
                         }&lt;/string&gt;
                         &lt;/property&gt;
@@ -288,7 +288,7 @@
                         &lt;/property&gt;
                         &lt;property name=&quot;styleSheet&quot;&gt;
                         &lt;string notr=&quot;true&quot;&gt;QLabel{
-                        font : 66pt;
+                        font : 60pt;
                         color : #205f76;
                         }&lt;/string&gt;
                         &lt;/property&gt;

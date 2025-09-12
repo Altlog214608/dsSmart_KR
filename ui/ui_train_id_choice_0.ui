@@ -124,7 +124,7 @@ QPushButton::hover{
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Scent diffusion is in progress.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignHCenter</set>
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
     <property name="margin">
      <number>0</number>
@@ -216,8 +216,8 @@ QProgressBar::chunk {
    <widget class="QPushButton" name="pb_next">
     <property name="geometry">
      <rect>
-      <x>1575</x>
-      <y>933</y>
+      <x>800</x>
+      <y>1004</y>
       <width>320</width>
       <height>100</height>
      </rect>

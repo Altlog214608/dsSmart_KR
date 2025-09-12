@@ -107,7 +107,7 @@
     <property name="styleSheet">
      <string notr="true">QLabel{
 	color : #205f76;
-	font : 66pt;
+	font : 60pt;
 }</string>
     </property>
     <property name="text">
