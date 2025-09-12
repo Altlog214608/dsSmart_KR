@@ -5553,11 +5553,15 @@ class UiDlg(QWidget):
                 "categories": "=Sheet1!$I$2:$I$3",
                 "values": "=Sheet1!$J$2:$J$3",
                 "data_labels": {"value": True, "percentage": True},
+                "points": [
+                    {"fill": {"color": "#4F81BD"}},  # 정답
+                    {"fill": {"color": "#817F7F"}},  # 오답
+                ],
             }
         )
         chart.set_title({"name": dsText.resultText["result_test_discrimination_title"]})
-        # chart.set_rotation(90)
-        chart.set_style(10)
+        chart.set_rotation(90)
+        # chart.set_style(10)
         worksheet.insert_chart("I4", chart, {"x_offset": 5, "y_offset": 5})
         workbook.close()
 
@@ -5757,9 +5761,14 @@ class UiDlg(QWidget):
                 "categories": f"={sheet_name}!$L$35:$L$36",
                 "values":     f"={sheet_name}!$M$35:$M$36",
                 "data_labels": {"value": True, "percentage": True},
+                "points": [
+                    {"fill": {"color": "#4F81BD"}},  # 정답
+                    {"fill": {"color": "#EBE8E8"}},  # 오답
+                ],
             })
             chart_id.set_title({"name": dsText.resultText["result_test_identification_title"]})
-            chart_id.set_style(10)
+            # chart_id.set_rotation(90)
+            # chart_id.set_style(10)
             worksheet_main.insert_chart("B13", chart_id, {"x_offset": 0, "y_offset": 0})
 
             # 총점(J4:K5) = 정답 수
@@ -6143,13 +6152,17 @@ class UiDlg(QWidget):
                     "categories": "=Discrimination!$I$2:$I$3",
                     "values": "=Discrimination!$J$2:$J$3",
                     "data_labels": {"value": True, "percentage": True},
+                    "points": [
+                        {"fill": {"color": "#4F81BD"}},  # 정답
+                        {"fill": {"color": "#817F7F"}},  # 오답
+                ],
                 }
             )
             chart_dc.set_title(
                 {"name": dsText.resultText["result_test_discrimination_title"]}
             )
-            # chart_dc.set_rotation(90)
-            chart_dc.set_style(10)
+            chart_dc.set_rotation(90)
+            # chart_dc.set_style(10)
             worksheet_dc.insert_chart("I4", chart_dc, {"x_offset": 5, "y_offset": 5})
 
         # --- 인지 결과 Sheet ---
@@ -6217,11 +6230,11 @@ class UiDlg(QWidget):
                 "data_labels": {"value": True, "percentage": True},
                 "points": [
                     {"fill": {"color": "#4F81BD"}},  # 정답
-                    {"fill": {"color": "#817F7F"}},  # 오답
+                    {"fill": {"color": "#D6D6D6"}},  # 오답
                 ],
             })
             chart_id.set_title({"name": dsText.resultText["result_test_identification_title"]})
-            chart_id.set_rotation(90)
+            # chart_id.set_rotation(90)
             worksheet_id.insert_chart("F4", chart_id, {"x_offset": 5, "y_offset": 5})
 
         # 닫기
@@ -6545,13 +6558,17 @@ class UiDlg(QWidget):
                     "categories": "=Discrimination!$I$2:$I$3",
                     "values": "=Discrimination!$J$2:$J$3",
                     "data_labels": {"value": True, "percentage": True},
+                    "points": [
+                        {"fill": {"color": "#4F81BD"}},  # 정답
+                        {"fill": {"color": "#817F7F"}},  # 오답
+                    ],
                 }
             )
             chart_dc.set_title(
                 {"name": dsText.resultText["result_test_discrimination_title"]}
             )
-            # chart_dc.set_rotation(90)
-            chart_dc.set_style(10)
+            chart_dc.set_rotation(90)
+            # chart_dc.set_style(10)
             worksheet_dc.insert_chart("I4", chart_dc, {"x_offset": 5, "y_offset": 5})
 
         # 인지 결과 Sheet
@@ -6602,14 +6619,14 @@ class UiDlg(QWidget):
                     "data_labels": {"value": True, "percentage": True},
                     "points": [
                         {"fill": {"color": "#4F81BD"}},  # 정답
-                        {"fill": {"color": "#7A7575"}}   # 오답
+                        {"fill": {"color": "#D8D8D8"}}   # 오답
                     ],
                 }
             )
             chart_id.set_title(
                 {"name": dsText.resultText["result_test_identification_title"]}
             )
-            chart_id.set_rotation(90)
+            # chart_id.set_rotation(90)
             # chart_id.set_style(10)
             worksheet_id.insert_chart("F4", chart_id, {"x_offset": 5, "y_offset": 5})
 
