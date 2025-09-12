@@ -344,7 +344,8 @@ class UiDlg(QWidget):
         self.setSubjectInfo(name="", birth_date="", gender="")
         self.ui_subject_dlg.table_test_id.clear()
         self.ui_subject_dlg.table_test_id.setRowCount(0)
-        # self.ui_subject_dlg.table_test_id.setColumnCount(0)
+        self.ui_subject_dlg.table_test_id.setColumnCount(0)
+
 
     def setSubjectInfo(self, name="", birth_date="", gender=""):
         # 이름, 연령, 성별을 확인한다. 파일명 저장할 때 활용한다.
@@ -2337,6 +2338,7 @@ class UiDlg(QWidget):
         )  # 행 인덱스 안보이게
         # self.ui_subject_dlg.table_test_id.horizontalHeader().setVisible(False) # 열 인덱스 안보이게
         self.ui_subject_dlg.table_test_id.setRowCount(0)
+        # self.ui_subject_dlg.table_test_id.setColumnCount(5)
         # self.ui_subject_dlg.table_test_id.setEditTriggers(
         #     QAbstractItemView.NoEditTriggers
         # )  # 수정 안되게
@@ -2352,6 +2354,8 @@ class UiDlg(QWidget):
                 data_test_id[0][5],
             ]
         )
+        # self.ui_subject_dlg.table_test_id.setHorizontalHeaderLabels(["이름","생년월일","성별","검사일시","점수"])
+
         self.ui_subject_dlg.table_test_id.setColumnWidth(0, 200)  # name
         self.ui_subject_dlg.table_test_id.setColumnWidth(1, 275)  # birth date
         self.ui_subject_dlg.table_test_id.setColumnWidth(2, 340)  # gender
@@ -2446,15 +2450,17 @@ class UiDlg(QWidget):
         self.isSubjectTestIDChanging = False
         table = self.ui_subject_dlg.table_test_id
 
-        table.clear()
+        table.clearContents()
         table.verticalHeader().setVisible(False)  # 행 인덱스 숨김
         table.setRowCount(0)
         table.setEditTriggers(QAbstractItemView.NoEditTriggers)  # 수정 불가
 
-        table.setColumnCount(len(data_test_id[0]) - 25)  # ID, 문제정보 제외한 표시용 컬럼 수
-        table.setHorizontalHeaderLabels(
-            [data_test_id[0][1], data_test_id[0][2], data_test_id[0][3], data_test_id[0][4], data_test_id[0][5]]
-        )
+        table.setColumnCount(5)  # ✅ 5개 고정 (이름, 생년월일, 성별, 검사일시, 점수)
+        # table.setColumnCount(len(data_test_id[0]) - 25)  # ID, 문제정보 제외한 표시용 컬럼 수
+        table.setHorizontalHeaderLabels(["이름","생년월일","성별","검사일시","점수"])
+        # table.setHorizontalHeaderLabels(
+        #     [data_test_id[0][1], data_test_id[0][2], data_test_id[0][3], data_test_id[0][4], data_test_id[0][5]]
+        # )
 
         # 컬럼 폭 세팅
         table.setColumnWidth(0, 200)  # name
