@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>846</width>
-    <height>466</height>
+    <height>604</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
    <property name="geometry">
     <rect>
      <x>280</x>
-     <y>80</y>
+     <y>150</y>
      <width>320</width>
      <height>100</height>
     </rect>
@@ -44,7 +44,7 @@ QPushButton::hover{
    <property name="geometry">
     <rect>
      <x>280</x>
-     <y>210</y>
+     <y>300</y>
      <width>320</width>
      <height>100</height>
     </rect>
@@ -68,7 +68,7 @@ QPushButton::hover{
    <property name="geometry">
     <rect>
      <x>280</x>
-     <y>340</y>
+     <y>450</y>
      <width>320</width>
      <height>100</height>
     </rect>
@@ -94,7 +94,7 @@ QPushButton::hover{
      <x>0</x>
      <y>0</y>
      <width>846</width>
-     <height>466</height>
+     <height>604</height>
     </rect>
    </property>
    <property name="styleSheet">

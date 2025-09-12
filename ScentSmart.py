@@ -502,6 +502,14 @@ class UiDlg(QWidget):
 
         # 후각 역치 검사 시작시 확인
         self.ui_test_threshold_start_confirm = uiLoader.load("./ui/ui_start_confirm.ui")
+
+        # ⬇⬇⬇ [추가] 흰 테두리 제거: 다이얼로그를 투명화
+        self.ui_test_threshold_start_confirm.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.ui_test_threshold_start_confirm.setWindowFlags(self.ui_dlg_login.windowFlags() | Qt.FramelessWindowHint)
+        self.ui_test_threshold_start_confirm.setAutoFillBackground(False)
+        self.ui_test_threshold_start_confirm.setStyleSheet("QDialog{background:transparent;} QLabel, QPushButton{background:transparent;}")
+        # ⬆⬆⬆
+
         self.ui_test_threshold_start_confirm.pb_start.clicked.connect(
             self.uiTestThresholdStartConfirmStart
         )
@@ -711,6 +719,14 @@ class UiDlg(QWidget):
         self.ui_test_identification_start_confirm = uiLoader.load(
             "./ui/ui_start_confirm.ui"
         )
+
+        # ⬇ 추가 ⬇
+        self.ui_test_identification_start_confirm.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.ui_test_identification_start_confirm.setWindowFlags(self.ui_test_identification_start_confirm.windowFlags() | Qt.FramelessWindowHint)
+        self.ui_test_identification_start_confirm.setAutoFillBackground(False)
+        self.ui_test_identification_start_confirm.setStyleSheet("QDialog{background:transparent;} QLabel, QPushButton{background:transparent;}")
+        # ⬆ 추가 끝 ⬆
+        
         self.ui_test_identification_start_confirm.pb_start.clicked.connect(
             self.uiTestIdentificationStartConfirmStart
         )
@@ -729,6 +745,14 @@ class UiDlg(QWidget):
         self.ui_test_identification_result_confirm = uiLoader.load(
             "./ui/ui_resume_confirm.ui"
         )
+        
+        # ⬇ 추가 ⬇
+        self.ui_test_identification_result_confirm.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.ui_test_identification_result_confirm.setWindowFlags(self.ui_test_identification_result_confirm.windowFlags() | Qt.FramelessWindowHint)
+        self.ui_test_identification_result_confirm.setAutoFillBackground(False)
+        self.ui_test_identification_result_confirm.setStyleSheet("QDialog{background:transparent;} QLabel, QPushButton{background:transparent;}")
+        # ⬆ 추가 끝 ⬆
+
         self.ui_test_identification_result_confirm.pb_resume.clicked.connect(
             self.uiTestIdentificationResultConfirmResume
         )
