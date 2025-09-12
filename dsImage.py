@@ -88,7 +88,7 @@ dsBtnImg = {
     '나무': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_tree.png)}',
     '땅콩': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_peanut.png)}',
     '재/연기': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_ash.png)}',
-    '화장품': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_babypowder.png)}',
+    '아기분 냄새': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_babypowder.png)}',
     '스피아민트': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_mint.png)}',
     '옥수수': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_corn.png)}',
     '인삼': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_redginseng.png)}',
@@ -107,6 +107,8 @@ dsBtnImg = {
     '쌀': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_rice.png)}',
     '녹차': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_green_tea.png)}',
     '국수': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_noodles.png)}',
+    '계피': 'QPushButton{border-image: url(./ui/images/test/i/img/btn_cinnamon.png)}',
+
     
     # 재활 문항
     '돈2000': 'QPushButton{border-image: url(./ui/images/train_id/img/btn_money_2000.png)}',
