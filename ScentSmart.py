@@ -2130,57 +2130,55 @@ class UiDlg(QWidget):
                 score += 1
 
         # 점수는 문항 데이터와 분리된 고정 칸에 저장 (DB 스키마에 맞게 위치 조정)
-        db_results[24] = score
+        db_results[4] = score
 
         print(db_results)
         dsTestDB.insertTableTestID(*tuple(db_results))
 
     def dbLoadTestId(self, db_results):
         print("dbLoadTestId")
-        # 메타데이터 인덱스
-        name = db_results[0]
-        birth_date = db_results[1]
-        gender = db_results[2]
-        test_date_time = db_results[3]
+
+        # ID(자동증가) 컬럼이 맨 앞에 있는지 감지
+        base = 1 if isinstance(db_results[0], int) else 0
+
+        # 메타(사용 안 하더라도 올바르게 잡아두면 안전)
+        name           = db_results[base + 0]
+        birth_date     = db_results[base + 1]
+        gender         = db_results[base + 2]
+        test_date_time = db_results[base + 3]
 
         id_results = [dsTestID.id_results_title]
 
-        db_offset = 6
+        # [이름,생일,성별,일시] + placeholder 1칸 뒤부터 (정답,응답) 시작
+        db_offset = base + 5
 
-        # --- 추가: "빈값" 판정 함수 (문자열 '0'과 공백까지 비움으로 처리) ---
         def _is_blank(x):
-            if x is None:
-                return True
-            if isinstance(x, (int, float)) and x == 0:
-                return True
+            if x is None: return True
+            if isinstance(x, (int, float)) and x == 0: return True
             if isinstance(x, str):
                 xs = x.strip()
                 if xs == "" or xs == "0":
                     return True
             return False
 
-        # DB row 구조: [메타 4칸] + (정답,응답) * N + ... 점수 등
-        # 페어 최대 개수 계산
         max_pairs = (len(db_results) - db_offset) // 2
 
         num = 1
         for i in range(max_pairs):
-            ans  = db_results[db_offset + i*2 + 0]   # (정답)
-            resp = db_results[db_offset + i*2 + 1]   # (응답)
+            ans  = db_results[db_offset + i*2 + 0]
+            resp = db_results[db_offset + i*2 + 1]
 
-            # 🔴 중요: 둘 다 비어있으면(빈문자/공백/'0'/0) = 유령문항 → 스킵
-            if _is_blank(ans) and _is_blank(resp):
-                continue
+            # ✅ 정답이 비어 있으면 패딩/점수 영역 → 문항으로 취급하지 않음
+            if _is_blank(ans):
+                continue  # (필요하면 break로 바꿔도 됨)
 
-            # 문자열 통일 (None 방지)
             ans  = "" if _is_blank(ans)  else str(ans)
             resp = "" if _is_blank(resp) else str(resp)
 
-            is_choice_correct = 1 if ans == resp and ans != "" else 0
+            is_choice_correct = 1 if ans and (ans == resp) else 0
             id_results.append([num, ans, resp, is_choice_correct, "주관식X", 0])
             num += 1
 
-        print(id_results)
         return id_results
 
 
@@ -2191,13 +2189,17 @@ class UiDlg(QWidget):
         print("makeSubjectTestRecordIdentification")
         # update table_suject
         try:
-            db_id_results = dsTestDB.selectTableTestIDOne(
-                name, birth_date, gender, test_date_time
-            )[
-                0
-            ]  # DB에서 읽기
+            # 1) 정확한 함수명으로 교체
+            rows = dsTestDB.selectTableTestIDOne(name, birth_date, gender, test_date_time)
+            # 2) 결과가 없을 때 안전 가드
+            if not rows:
+                self.uiDlgMsgText("해당 키로 검사 기록을 찾을 수 없습니다.\n(이름/생년/성별/검사시각을 확인하세요)")
+                print("[DEBUG] keys:", name, birth_date, gender, test_date_time)
+                return
+            db_id_results = rows[0]  # 첫 행
         except Exception as err:
             self.uiDlgMsgText(dsText.errorText["db_select_test_id_fail"])
+            print("[ERROR] selectTableTestIDOne:", err)
             return
 
         self.ui_test_identification_record.label_name.setText(name)
@@ -2754,7 +2756,7 @@ class UiDlg(QWidget):
         self.ui_test_results.label_dscore.setText("%d" % dsTestDC.D_score)
         # D_question_cnt = D_count_correct + D_count_not_correct
         # D_correct_pct = (D_count_correct * 100) / D_question_cnt
-        self.ui_test_results.label_dc_time.setText(
+        self.ui_test_results.label_dc_time.setText( 
             dsUtils.hmsFormFromCounts(dsTestDC.dc_time_count)
         )
 
@@ -4210,6 +4212,7 @@ class UiDlg(QWidget):
         self.uiDlgChange(self.ui_test_identification_response, self.ui_menu_dlg)
         # 사운드 (메뉴)
         dsSound.playGuideSound("intro_menu")
+        
 
     def uiTestIdentificationResponseResult(self):
         # 검사 결과 화면을 구성한다.
@@ -5676,13 +5679,14 @@ class UiDlg(QWidget):
         worksheet.write("G3", f"={total_q}-G2")
         # == 변경 끝 ==
 
+        sheet_name = "IdentificationTest"
         # 차트 만들기
         chart = workbook.add_chart({"type": "pie"})
         chart.add_series(
             {
                 "name": dsText.resultText["result_test_identification_title"],
-                "categories": "=Sheet1!$F$2:$F$3",
-                "values": "=Sheet1!$G$2:$G$3",
+                "categories": f"={sheet_name}!$F$2:$F$3",
+                "values":     f"={sheet_name}!$G$2:$G$3",
                 "data_labels": {"value": True, "percentage": True},
                 # ⬇⬇⬇ 색상/슬라이스 개별 스타일
                 "points": [
@@ -6668,34 +6672,74 @@ class UiDlg(QWidget):
         # 기록 조회 페이지 전체를 출력 (필요한 경우)
         self.printWidget(self.ui_test_identification_record, title="인지검사 기록")
 
-    def printExcelFile(self, path: str):
-        """OS 기본 앱(윈도우: Excel)으로 .xlsx를 인쇄."""
-        import sys, os
+    # def printExcelFile(self, path: str):
+    #     """OS 기본 앱(윈도우: Excel)으로 .xlsx를 인쇄."""
+    #     import sys, os
+    #     try:
+    #         if sys.platform.startswith('win'):
+    #             # 가장 간단/안정: 기본 앱에 'print' 동작 전달
+    #             try:
+    #                 os.startfile(path, 'print')
+    #             except Exception:
+    #                 # (옵션) pywin32가 있을 때 더 강력한 경로
+    #                 try:
+    #                     import win32com.client
+    #                     excel = win32com.client.Dispatch("Excel.Application")
+    #                     excel.Visible = False
+    #                     wb = excel.Workbooks.Open(path)
+    #                     wb.PrintOut()   # 기본 프린터로 출력
+    #                     wb.Close(SaveChanges=False)
+    #                     excel.Quit()
+    #                 except Exception as e2:
+    #                     self.uiDlgMsgText(f"엑셀 인쇄 실패: {e2}")
+    #         else:
+    #             # macOS/Linux: 연결 앱으로 열어두고 사용자가 인쇄
+    #             from PySide6 import QtCore, QtGui
+    #             QtGui.QDesktopServices.openUrl(QtCore.QUrl.fromLocalFile(path))
+    #             self.uiDlgMsgText("엑셀에서 파일을 열었습니다. 메뉴에서 '인쇄'를 눌러주세요.")
+    #     except Exception as err:
+    #         self.uiDlgMsgText(f"인쇄 중 오류가 발생했습니다: {err}")
+
+    def printExcelFile(self, path: str, copies: int = 1):
+        """OS 기본 앱(윈도우: Excel)으로 .xlsx를 인쇄. copies 매수 지원."""
+        import sys, os, time
         try:
             if sys.platform.startswith('win'):
-                # 가장 간단/안정: 기본 앱에 'print' 동작 전달
+                # 1순위: pywin32 (복사매수/집계 등 세부 옵션 가능)
                 try:
-                    os.startfile(path, 'print')
+                    import win32com.client
+                    excel = win32com.client.DispatchEx("Excel.Application")
+                    excel.Visible = False
+                    excel.DisplayAlerts = False
+                    wb = excel.Workbooks.Open(path)
+
+                    # 필요한 경우 첫 시트만 인쇄하고 싶다면: ws = wb.Worksheets(1); ws.PrintOut(Copies=copies, Collate=True)
+                    wb.PrintOut(Copies=copies, Collate=True)  # 기본 프린터, 지정 매수 출력
+
+                    wb.Close(SaveChanges=False)
+                    excel.Quit()
+                    return
                 except Exception:
-                    # (옵션) pywin32가 있을 때 더 강력한 경로
-                    try:
-                        import win32com.client
-                        excel = win32com.client.Dispatch("Excel.Application")
-                        excel.Visible = False
-                        wb = excel.Workbooks.Open(path)
-                        wb.PrintOut()   # 기본 프린터로 출력
-                        wb.Close(SaveChanges=False)
-                        excel.Quit()
-                    except Exception as e2:
-                        self.uiDlgMsgText(f"엑셀 인쇄 실패: {e2}")
+                    # 2순위: os.startfile('print') (매수 미지원) → copies 만큼 반복
+                    for i in range(max(1, copies)):
+                        try:
+                            os.startfile(path, 'print')
+                            # 스풀러 과부하 방지(연속 호출 시): 아주 짧게 쉬어주기
+                            time.sleep(0.5)
+                        except Exception as e1:
+                            self.uiDlgMsgText(f"os.startfile 인쇄 실패: {e1}")
+                            break
             else:
                 # macOS/Linux: 연결 앱으로 열어두고 사용자가 인쇄
                 from PySide6 import QtCore, QtGui
                 QtGui.QDesktopServices.openUrl(QtCore.QUrl.fromLocalFile(path))
-                self.uiDlgMsgText("엑셀에서 파일을 열었습니다. 메뉴에서 '인쇄'를 눌러주세요.")
+                if copies > 1:
+                    self.uiDlgMsgText(f"엑셀에서 파일을 열었습니다. 인쇄 대화상자에서 매수를 {copies}부로 설정하세요.")
+                else:
+                    self.uiDlgMsgText("엑셀에서 파일을 열었습니다. 메뉴에서 '인쇄'를 눌러주세요.")
         except Exception as err:
             self.uiDlgMsgText(f"인쇄 중 오류가 발생했습니다: {err}")
-
+            
     def _pickExcelIfMissing(self):
         """경로를 못 찾으면 사용자에게 .xlsx 파일을 고르게 한다."""
         from PySide6.QtWidgets import QFileDialog
@@ -6733,14 +6777,8 @@ class UiDlg(QWidget):
         self.last_saved_excel_path = save_path
 
         # 그 파일을 바로 인쇄 (Windows: 기본 프린터로)
-        self.printExcelFile(save_path)
+        self.printExcelFile(save_path, copies=2)
         
-        # path = getattr(self, 'last_saved_excel_path', None)
-        # if not path or not os.path.exists(path):
-        #     path = self._pickExcelIfMissing()
-        #     if not path:
-        #         return
-        # self.printExcelFile(path)
 
     def uiTestIdentificationRecordPrintExcel(self):
         # 기록 조회 화면에서도 동일 동작
