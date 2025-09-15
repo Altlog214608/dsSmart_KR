@@ -37,7 +37,7 @@ id_test_data = [
     {'choice1': '생선','choice2': '아기 분','choice3': '카레','choice4': '키위','answer': '아기 분','scent_no': 6,'outlet_no': 1,
      'choice5':'버섯','choice6':'레몬','choice7':'양파','choice8':'사과','choice9':'국수','choice10':'장미'},
 
-    {'choice1': '녹차','choice2': '마늘','choice3': '간장','choice4': '쇠','answer': '녹차','scent_no': 7,'outlet_no': 1,
+    {'choice1': '녹차','choice2': '마늘','choice3': '간장','choice4': '쇠','answer': '복숭아','scent_no': 7,'outlet_no': 1,
      'choice5':'멜론','choice6':'계란','choice7':'국수','choice8':'솜사탕','choice9':'양파','choice10':'복숭아'},
 
     {'choice1': '후추','choice2': '딸기','choice3': '계란','choice4': '홍삼','answer': '홍삼','scent_no': 8,'outlet_no': 1,
