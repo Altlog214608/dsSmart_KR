@@ -4217,6 +4217,19 @@ class UiDlg(QWidget):
     def uiTestIdentificationResponseResult(self):
         # 검사 결과 화면을 구성한다.
         self.makeTestResultsIdentification()
+
+            # ★★★ 추가: 중간 저장/인쇄 대비 - 항상 현재 세션으로 record_* 덮어쓰기
+        from datetime import datetime
+        now = datetime.now()
+        try:
+            self.record_id_results = dsTestID.id_results[1:]
+        except Exception:
+            self.record_id_results = dsTestID.id_results
+        self.record_name = getattr(self, 'name', '')
+        self.record_birth_date = getattr(self, 'birth_date', '')
+        self.record_gender = getattr(self, 'gender', '')
+        self.record_test_date_time = now.strftime("%Y-%m-%d %H:%M")
+        
         self.uiDlgChange(
             self.ui_test_identification_response, self.ui_test_identification_results
         )
@@ -4265,24 +4278,19 @@ class UiDlg(QWidget):
             self.makeTestResultsIdentification()
             self.uiDlgShow(self.ui_test_identification_results)
 
-            # ▼ 추가: record_* 값이 비어 있으면 현재 세션 값으로 채워 넣기
+            # ▼ 항상 현재 세션 값으로 record_* 갱신
             from datetime import datetime
             now = datetime.now()
-            if not getattr(self, 'record_id_results', None):
-                # 헤더가 ['문항','정답',...] 라면 [1:]로 본문만
-                try:
-                    self.record_id_results = dsTestID.id_results[1:]
-                except Exception:
-                    self.record_id_results = dsTestID.id_results
 
-            if not getattr(self, 'record_name', None):
-                self.record_name = getattr(self, 'name', '')
-            if not getattr(self, 'record_birth_date', None):
-                self.record_birth_date = getattr(self, 'birth_date', '')
-            if not getattr(self, 'record_gender', None):
-                self.record_gender = getattr(self, 'gender', '')
-            if not getattr(self, 'record_test_date_time', None):
-                self.record_test_date_time = now.strftime("%Y-%m-%d %H:%M")
+            try:
+                self.record_id_results = dsTestID.id_results[1:]
+            except Exception:
+                self.record_id_results = dsTestID.id_results
+
+            self.record_name = getattr(self, 'name', '')
+            self.record_birth_date = getattr(self, 'birth_date', '')
+            self.record_gender = getattr(self, 'gender', '')
+            self.record_test_date_time = now.strftime("%Y-%m-%d %H:%M")
 
             # 사운드
             dsSound.playGuideSound("result_identification")
@@ -4290,23 +4298,6 @@ class UiDlg(QWidget):
             # DB 저장
             self.dbSaveTestID(dsTestID.id_results)
 
-        # else:
-        #     # 검사 종료
-        #     # print("id: %d, data: %d" % (dsTestID.id_test_index, len(dsTestID.id_test_data)))
-        #     dsTestID.id_test_index += 1
-        #     dsTest.test_type = 0
-        #     self.uiDlgHide(self.ui_test_identification_response)
-        #     if dsSetting.dsParam['result_show_onoff'] == 1:
-        #         # 검사 결과 화면을 구성한다.
-        #         self.makeTestResultsIdentification()
-        #         self.uiDlgShow(self.ui_test_identification_results)
-        #         # 사운드
-        #         dsSound.playGuideSound('result_identification')
-        #     else:
-        #         self.uiDlgShow(self.ui_test_identification_completion)
-        #         # 사운드
-        #         dsSound.playGuideSound('end_identification')
-        #     self.dbSaveTestID(dsTestID.id_results)
 
     # 검사 결과 화면을 구성한다. (인지검사)
     def makeTestResultsIdentification(self):
