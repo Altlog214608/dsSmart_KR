@@ -12,6 +12,7 @@ dist/
 build/
 *.manifest
 *.spec
+data_raw/
 
 # pipenv, poetry, venv, conda 등 가상환경 폴더
 .venv/
